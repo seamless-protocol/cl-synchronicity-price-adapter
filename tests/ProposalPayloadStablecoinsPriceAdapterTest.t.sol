@@ -7,7 +7,7 @@ import "forge-std/console.sol";
 import {ProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol';
 import {StablecoinPriceAdapter} from '../src/contracts/StablecoinPriceAdapter.sol';
 import {GovHelpers, IAaveGov} from './helpers/AaveGovHelpers.sol';
-import {IAaveOracle} from '../src/interfaces/IAaveOracle.sol';
+import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
 
 contract ProposalPayloadStablecoinsPriceAdapterTest is Test, ProposalPayloadStablecoinsPriceAdapter {
 
@@ -51,7 +51,7 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is Test, ProposalPayloadStab
 
     //Check if source for every asset is changed
     for (uint8 i = 0; i < assets.length; i++) {
-      address newSource = AAVE_ORACLE.getSourceOfAsset(assets[i]);
+      address newSource = AaveV2Ethereum.ORACLE.getSourceOfAsset(assets[i]);
       address assetUsdAggregator = address(StablecoinPriceAdapter(newSource).assetUsdAggregator());
       assertTrue(assetUsdAggregator == aggregators[i]);
     }    

@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import '../interfaces/IAaveOracle.sol';
 import './StablecoinPriceAdapter.sol';
+import {IAaveOracle} from "aave-address-book/AaveV2.sol";
+import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
 
 /**
  * @title ProposalPayloadStablecoinsPriceAdapter
@@ -11,8 +12,7 @@ import './StablecoinPriceAdapter.sol';
  */
 contract ProposalPayloadStablecoinsPriceAdapter {
 
-  IAaveOracle public constant AAVE_ORACLE = 
-    IAaveOracle(0xA50ba011c48153De246E5192C8f9258A2ba79Ca9);
+//   IAaveOracle public AAVE_ORACLE = AaveV2Ethereum.ORACLE;
 
   address public constant ETH_USD_AGGREGATOR = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
 
@@ -67,6 +67,6 @@ contract ProposalPayloadStablecoinsPriceAdapter {
     }
 
     // set new asset source for all stable coins
-    AAVE_ORACLE.setAssetSources(assets, adapters);
+    AaveV2Ethereum.ORACLE.setAssetSources(assets, adapters);
   }
 }

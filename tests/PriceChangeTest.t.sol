@@ -5,7 +5,7 @@ import {Test} from 'forge-std/Test.sol';
 
 import {ProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol';
 import {StablecoinPriceAdapter} from '../src/contracts/StablecoinPriceAdapter.sol';
-import {IAaveOracle} from '../src/interfaces/IAaveOracle.sol';
+import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
 
 contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
 
@@ -29,7 +29,7 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
     }
 
     for (uint8 i = 0; i < assets.length; i++) {
-        uint256 currentPrice = AAVE_ORACLE.getAssetPrice(assets[i]);
+        uint256 currentPrice = AaveV2Ethereum.ORACLE.getAssetPrice(assets[i]);
         uint256 newPrice = uint256(StablecoinPriceAdapter(adapters[i]).latestAnswer());
         
         uint256 maximumDifference = (currentPrice * MAX_DIFF_PERCENTAGE) / 100;

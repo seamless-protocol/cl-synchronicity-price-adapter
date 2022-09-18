@@ -5,7 +5,6 @@ import {Test} from 'forge-std/Test.sol';
 import "forge-std/console.sol";
 
 import {StablecoinPriceAdapter} from '../src/contracts/StablecoinPriceAdapter.sol';
-import {IAaveOracle} from '../src/interfaces/IAaveOracle.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
 import {MockAggregator} from './mock/MockAggregator.sol';
 
