@@ -23,11 +23,9 @@ contract ArcProposalPayloadStablecoinsPriceAdapter {
     address[] memory assets = new address[](1);
     address[] memory aggregators = new address[](1);
 
-    // TODO: add assets
-
-    // USDT
-    assets[0] = 0xdAC17F958D2ee523a2206206994597C13D831ec7;
-    aggregators[0] = 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D;
+    // USDC
+    assets[0] = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
+    aggregators[0] = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
 
     return (assets, aggregators);
   }
