@@ -9,12 +9,17 @@ import {StablecoinPriceAdapter} from '../src/contracts/StablecoinPriceAdapter.so
 import {GovHelpers, IAaveGov} from './helpers/AaveGovHelpers.sol';
 import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
 
-contract ProposalPayloadStablecoinsPriceAdapterTest is Test, ProposalPayloadStablecoinsPriceAdapter {
-
+contract ProposalPayloadStablecoinsPriceAdapterTest is 
+  Test, 
+  ProposalPayloadStablecoinsPriceAdapter 
+{
   function setUp() public {}
 
   function testProposal() public {
-    (address[] memory assets, address[] memory aggregators) = _initAssetAggregators();
+    (
+      address[] memory assets,
+      address[] memory aggregators
+    ) = _initAssetAggregators();
 
     ProposalPayloadStablecoinsPriceAdapter payload = new ProposalPayloadStablecoinsPriceAdapter();
 
@@ -52,7 +57,9 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is Test, ProposalPayloadStab
     //Check if source for every asset is changed
     for (uint8 i = 0; i < assets.length; i++) {
       address newSource = AaveV2Ethereum.ORACLE.getSourceOfAsset(assets[i]);
-      address assetUsdAggregator = address(StablecoinPriceAdapter(newSource).assetUsdAggregator());
+      address assetUsdAggregator = address(
+        StablecoinPriceAdapter(newSource).assetUsdAggregator()
+      );
       assertTrue(assetUsdAggregator == aggregators[i]);
     }    
   }

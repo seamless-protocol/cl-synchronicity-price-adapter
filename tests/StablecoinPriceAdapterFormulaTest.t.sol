@@ -22,25 +22,26 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     int256 ethPrice = ETH_USD_AGGREGATOR.latestAnswer();
     
     for (uint256 i = 1; i <= TESTS; i++) {
-        MockAggregator aggregator = new MockAggregator(
-            ethPrice / int256(i), 
-            ETH_USD_AGGREGATOR.decimals()
-        ); 
+      
+      MockAggregator aggregator = new MockAggregator(
+        ethPrice / int256(i), 
+        ETH_USD_AGGREGATOR.decimals()
+      ); 
 
-        StablecoinPriceAdapter adapter = new StablecoinPriceAdapter(
-            address(ETH_USD_AGGREGATOR),
-            address(aggregator)
-        );
+      StablecoinPriceAdapter adapter = new StablecoinPriceAdapter(
+        address(ETH_USD_AGGREGATOR),
+        address(aggregator)
+      );
 
-        int256 price = adapter.latestAnswer();
-        int256 expectedPriceInEth = int256(1 ether / i);
+      int256 price = adapter.latestAnswer();
+      int256 expectedPriceInEth = int256(1 ether / i);
 
-        int256 maxDiff = int256(10 ** (aggregator.decimals()));
-        assertTrue(_abs(price - expectedPriceInEth) < maxDiff);
+      int256 maxDiff = int256(10 ** (aggregator.decimals()));
+      assertTrue(_abs(price - expectedPriceInEth) < maxDiff);
     }
   }
 
   function _abs(int256 x) internal pure returns(int256) {
-      return (x > 0) ? x : -x;
+    return (x > 0) ? x : -x;
   }
 }
