@@ -2,15 +2,14 @@
 pragma solidity ^0.8.4;
 
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
+import {IStablecoinPriceAdapter} from '../interfaces/IStablecoinPriceAdapter.sol';
 
-error DifferentAggregatorsDecimals();
-
-contract StablecoinPriceAdapter  {
+contract StablecoinPriceAdapter is IStablecoinPriceAdapter   {
     IChainlinkAggregator public immutable ethUsdAggregator;
     IChainlinkAggregator public immutable assetUsdAggregator;
 
     uint8 constant public resultDecimals = 18;
-    int256 constant public resultDecimals_pow10 = int256(10**resultDecimals);
+    int256 public immutable decimalsMultiplier;
     
     constructor(
         address ethUsdAggregatorAddress,
@@ -19,15 +18,37 @@ contract StablecoinPriceAdapter  {
         ethUsdAggregator = IChainlinkAggregator(ethUsdAggregatorAddress);
         assetUsdAggregator = IChainlinkAggregator(assetUsdAggregatorAddress);
 
-        if (ethUsdAggregator.decimals() != assetUsdAggregator.decimals()) {
-            revert DifferentAggregatorsDecimals(); 
-        }
+        uint8 assetUsdAggregatorDecimals = assetUsdAggregator.decimals();
+        uint8 ethUsdAggregatorDecimals = ethUsdAggregator.decimals();
+
+        decimalsMultiplier = 
+          _calcDecimalsMultiplier(
+            assetUsdAggregatorDecimals,
+            ethUsdAggregatorDecimals
+          );
     }
 
-    function latestAnswer() external view returns (int256) {
+    function latestAnswer() override external view returns (int256) {
         int256 assetPrice = assetUsdAggregator.latestAnswer();
         int256 ethPrice = ethUsdAggregator.latestAnswer();
         
-        return (assetPrice * resultDecimals_pow10) / ethPrice;
+        return (assetPrice * decimalsMultiplier) / ethPrice;
+    }
+
+    function decimals() override external view returns(uint8) {
+        return resultDecimals;
+    }
+
+    function _calcDecimalsMultiplier(
+        uint8 assetDecimals, 
+        uint8 ethDecimals
+    ) internal pure returns(int256) {
+        int256 multiplier = int256(10 ** resultDecimals);
+        if (assetDecimals < ethDecimals) {
+            multiplier *= int256(10 ** (ethDecimals - assetDecimals));
+        } else {
+            multiplier /= int256(10 ** (assetDecimals - ethDecimals));
+        }
+        return multiplier;
     }
 }
