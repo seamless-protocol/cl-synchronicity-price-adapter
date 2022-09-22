@@ -35,7 +35,7 @@ contract StablecoinPriceAdapter is IStablecoinPriceAdapter   {
         return (assetPrice * decimalsMultiplier) / ethPrice;
     }
 
-    function decimals() override external view returns(uint8) {
+    function decimals() override external pure returns(uint8) {
         return resultDecimals;
     }
 

@@ -18,7 +18,6 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
     (address[] memory assets, address[] memory aggregators) = _initAssetAggregators();
     address[] memory adapters = new address[](assets.length);
 
-    // for each stable coin make price adapter
     for (uint8 i = 0; i < assets.length; i++) {
       StablecoinPriceAdapter adapter = new StablecoinPriceAdapter(
           ETH_USD_AGGREGATOR,
