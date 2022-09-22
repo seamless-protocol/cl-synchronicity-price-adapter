@@ -4,11 +4,32 @@ pragma solidity ^0.8.4;
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
+/**
+ * @title CLSynchronicityPriceAdapter
+ * @author BGD Labs
+ * @notice Price adapter to calculate price of (Asset / Base) pair by using
+ * @notice Chainlink Data Feeds for (Asset / Peg) and (Base / Peg) pairs.
+ */
 contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter   {
+    /**
+     * @notice Price feed for (Base / Peg) pair
+     */
     IChainlinkAggregator public immutable BASE_TO_PEG;
+
+    /**
+     * @notice Price feed for (Asset / Peg) pair
+     */
     IChainlinkAggregator public immutable ASSET_TO_PEG;
 
+    /**
+     * @notice Number of decimals in the output of this price adapter
+     */
     uint8 public immutable DECIMALS;
+
+    /** 
+     * @notice Multiplier used in formula for calculating price to 
+     * @notice achive desired number of resulting decimals.
+     */
     int256 public immutable DECIMALS_MULTIPLIER;
     
     constructor(
