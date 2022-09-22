@@ -23,27 +23,15 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is
 
     ProposalPayloadStablecoinsPriceAdapter payload = new ProposalPayloadStablecoinsPriceAdapter();
 
-    address[] memory targets = new address[](1);
-    targets[0] = address(payload);
-    uint256[] memory values = new uint256[](1);
-    values[0] = 0;
-    string[] memory signatures = new string[](1);
-    signatures[0] = 'execute()';
-    bytes[] memory calldatas = new bytes[](1);
-    calldatas[0] = '';
-    bool[] memory withDelegatecalls = new bool[](1);
-    withDelegatecalls[0] = true;
-
-    IAaveGov.SPropCreateParams memory createParams = IAaveGov
-      .SPropCreateParams({
-        executor: GovHelpers.SHORT_EXECUTOR,
-        targets: targets,
-        values: values,
-        signatures: signatures,
-        calldatas: calldatas,
-        withDelegatecalls: withDelegatecalls,
-        ipfsHash: bytes32(0)
-      });
+    IAaveGov.SPropCreateParams memory createParams = GovHelpers.createProposalParamsForOneTarget({
+      executor: GovHelpers.SHORT_EXECUTOR,
+      target: address(payload),
+      value: 0,
+      signature: 'execute()',
+      calldatabytes: '',
+      withDelegatecall: true,
+      ipfsHash: bytes32(0)
+    });
 
     uint256 proposalId = GovHelpers.createProposal(vm, createParams);
 

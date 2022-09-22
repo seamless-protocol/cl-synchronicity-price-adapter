@@ -53,6 +53,29 @@ library TimelockHelpers {
     return count;
   }
 
+  function createProposalParamsForOneTarget(
+    address target,
+    uint256 value,
+    string memory signature,
+    bytes memory calldatabytes,
+    bool withDelegatecall
+  ) internal pure returns(ITimelockExecutor.SPropQueueParams memory params) {
+    params.targets = new address[](1);
+    params.targets[0] = target;
+
+    params.values = new uint256[](1);
+    params.values[0] = value;
+
+    params.signatures = new string[](1);
+    params.signatures[0] = signature;
+
+    params.calldatas = new bytes[](1);
+    params.calldatas[0] = calldatabytes;
+
+    params.withDelegatecalls = new bool[](1);
+    params.withDelegatecalls[0] = withDelegatecall;
+  }
+
   function executeActionSet(uint256 actionSetId) internal {
     TIMELOCK_EXECUTOR.execute(actionSetId);
   }
@@ -60,4 +83,6 @@ library TimelockHelpers {
   function getTimelockExecutorDelay() internal view returns (uint256) {
     return TIMELOCK_EXECUTOR.getDelay();
   }
+
+
 }

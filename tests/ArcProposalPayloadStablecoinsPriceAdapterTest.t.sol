@@ -22,24 +22,13 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
 
     ArcProposalPayloadStablecoinsPriceAdapter payload = new ArcProposalPayloadStablecoinsPriceAdapter();
 
-    address[] memory targets = new address[](1);
-    targets[0] = address(payload);
-    uint256[] memory values = new uint256[](1);
-    values[0] = 0;
-    string[] memory signatures = new string[](1);
-    signatures[0] = 'execute()';
-    bytes[] memory calldatas = new bytes[](1);
-    calldatas[0] = '';
-    bool[] memory withDelegatecalls = new bool[](1);
-    withDelegatecalls[0] = true;
-
-    ITimelockExecutor.SPropQueueParams memory queueParams = ITimelockExecutor
-      .SPropQueueParams({
-        targets: targets,
-        values: values,
-        signatures: signatures,
-        calldatas: calldatas,
-        withDelegatecalls: withDelegatecalls
+    ITimelockExecutor.SPropQueueParams memory queueParams = TimelockHelpers
+      .createProposalParamsForOneTarget({
+        target: address(payload),
+        value: 0,
+        signature: 'execute()',
+        calldatabytes: '',
+        withDelegatecall: true
       });
 
     uint256 delay = TimelockHelpers.getTimelockExecutorDelay();

@@ -3,6 +3,7 @@ pragma solidity >=0.7.5 <0.9.0;
 pragma abicoder v2;
 
 import 'forge-std/Vm.sol';
+import 'forge-std/console.sol';
 
 interface IAaveGov {
   struct ProposalWithoutVotes {
@@ -108,6 +109,38 @@ library GovHelpers {
     );
     vm.stopPrank();
     return proposalId;
+  }
+  
+  /**
+   * Creates proposal parameters arrays for one target
+   */
+  function createProposalParamsForOneTarget(
+    address executor,
+    address target,
+    uint256 value,
+    string memory signature,
+    bytes memory calldatabytes,
+    bool withDelegatecall,
+    bytes32 ipfsHash
+  ) internal pure returns(IAaveGov.SPropCreateParams memory params) {
+    params.executor = executor;
+
+    params.targets = new address[](1);
+    params.targets[0] = target;
+
+    params.values = new uint256[](1);
+    params.values[0] = value;
+
+    params.signatures = new string[](1);
+    params.signatures[0] = signature;
+
+    params.calldatas = new bytes[](1);
+    params.calldatas[0] = calldatabytes;
+
+    params.withDelegatecalls = new bool[](1);
+    params.withDelegatecalls[0] = withDelegatecall;
+
+    params.ipfsHash = ipfsHash;
   }
 
   function _getProposalSlot(uint256 proposalId)
