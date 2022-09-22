@@ -4,51 +4,52 @@ pragma solidity ^0.8.4;
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
+error DecimalsMultiplierIsZero();
+
 contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter   {
-    IChainlinkAggregator public immutable ethUsdAggregator;
-    IChainlinkAggregator public immutable assetUsdAggregator;
+    IChainlinkAggregator public immutable BASE_TO_PEG;
+    IChainlinkAggregator public immutable ASSET_TO_PEG;
 
     uint8 public immutable DECIMALS;
     int256 public immutable DECIMALS_MULTIPLIER;
     
     constructor(
-        address ethUsdAggregatorAddress,
-        address assetUsdAggregatorAddress,
+        address baseToPegAggregatorAddress,
+        address asseToPegAggregatorAddress,
         uint8 decimals
     ) {
-        ethUsdAggregator = IChainlinkAggregator(ethUsdAggregatorAddress);
-        assetUsdAggregator = IChainlinkAggregator(assetUsdAggregatorAddress);
-
-        uint8 assetUsdAggregatorDecimals = assetUsdAggregator.decimals();
-        uint8 ethUsdAggregatorDecimals = ethUsdAggregator.decimals();
+        BASE_TO_PEG = IChainlinkAggregator(baseToPegAggregatorAddress);
+        ASSET_TO_PEG = IChainlinkAggregator(asseToPegAggregatorAddress);
 
         DECIMALS = decimals;
 
         DECIMALS_MULTIPLIER = 
           _calcDecimalsMultiplier(
-            assetUsdAggregatorDecimals,
-            ethUsdAggregatorDecimals,
+            ASSET_TO_PEG.decimals(),
+            BASE_TO_PEG.decimals(),
             DECIMALS
           );
+
+        if (DECIMALS_MULTIPLIER == 0) revert DecimalsMultiplierIsZero();
     }
 
     function latestAnswer() override external view returns (int256) {
-        int256 assetPrice = assetUsdAggregator.latestAnswer();
-        int256 ethPrice = ethUsdAggregator.latestAnswer();
+        int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
+        int256 baseToPegPrice = BASE_TO_PEG.latestAnswer();
         
-        return (assetPrice * DECIMALS_MULTIPLIER) / ethPrice;
+        return (assetToPegPrice * DECIMALS_MULTIPLIER) / baseToPegPrice;
     }
 
     function _calcDecimalsMultiplier(
-        uint8 assetDecimals, 
-        uint8 ethDecimals,
+        uint8 assetToPegDecimals, 
+        uint8 baseToPegDecimals,
         uint8 resultDecimals
     ) internal pure returns(int256) {
         int256 multiplier = int256(10 ** resultDecimals);
-        if (assetDecimals < ethDecimals) {
-            multiplier *= int256(10 ** (ethDecimals - assetDecimals));
+        if (assetToPegDecimals < baseToPegDecimals) {
+            multiplier *= int256(10 ** (baseToPegDecimals - assetToPegDecimals));
         } else {
-            multiplier /= int256(10 ** (assetDecimals - ethDecimals));
+            multiplier /= int256(10 ** (assetToPegDecimals - baseToPegDecimals));
         }
         return multiplier;
     }

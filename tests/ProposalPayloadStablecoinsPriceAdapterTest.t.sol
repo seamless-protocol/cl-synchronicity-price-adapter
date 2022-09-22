@@ -48,7 +48,7 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is
     for (uint8 i = 0; i < assets.length; i++) {
       address newSource = AaveV2Ethereum.ORACLE.getSourceOfAsset(assets[i]);
       address assetUsdAggregator = address(
-        CLSynchronicityPriceAdapter(newSource).assetUsdAggregator()
+        CLSynchronicityPriceAdapter(newSource).ASSET_TO_PEG()
       );
       assertTrue(assetUsdAggregator == aggregators[i]);
     }    
