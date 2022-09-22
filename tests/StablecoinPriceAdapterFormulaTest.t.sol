@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 
-import {StablecoinPriceAdapter} from '../src/contracts/StablecoinPriceAdapter.sol';
+import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
 
 contract StablecoinPriceAdapterFormulaTest is Test {
@@ -26,9 +26,10 @@ contract StablecoinPriceAdapterFormulaTest is Test {
       int256 mockPrice = ethPrice / int256(i);
       _setMockPrice(mockAggregator, mockPrice);
 
-      StablecoinPriceAdapter adapter = new StablecoinPriceAdapter(
+      CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
         address(ETH_USD_AGGREGATOR),
-        mockAggregator
+        mockAggregator,
+        18
       );
 
       int256 price = adapter.latestAnswer();

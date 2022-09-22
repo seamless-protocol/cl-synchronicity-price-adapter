@@ -2,18 +2,19 @@
 pragma solidity ^0.8.4;
 
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
-import {IStablecoinPriceAdapter} from '../interfaces/IStablecoinPriceAdapter.sol';
+import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
-contract StablecoinPriceAdapter is IStablecoinPriceAdapter   {
+contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter   {
     IChainlinkAggregator public immutable ethUsdAggregator;
     IChainlinkAggregator public immutable assetUsdAggregator;
 
-    uint8 constant public resultDecimals = 18;
-    int256 public immutable decimalsMultiplier;
+    uint8 public immutable DECIMALS;
+    int256 public immutable DECIMALS_MULTIPLIER;
     
     constructor(
         address ethUsdAggregatorAddress,
-        address assetUsdAggregatorAddress
+        address assetUsdAggregatorAddress,
+        uint8 decimals
     ) {
         ethUsdAggregator = IChainlinkAggregator(ethUsdAggregatorAddress);
         assetUsdAggregator = IChainlinkAggregator(assetUsdAggregatorAddress);
@@ -21,10 +22,13 @@ contract StablecoinPriceAdapter is IStablecoinPriceAdapter   {
         uint8 assetUsdAggregatorDecimals = assetUsdAggregator.decimals();
         uint8 ethUsdAggregatorDecimals = ethUsdAggregator.decimals();
 
-        decimalsMultiplier = 
+        DECIMALS = decimals;
+
+        DECIMALS_MULTIPLIER = 
           _calcDecimalsMultiplier(
             assetUsdAggregatorDecimals,
-            ethUsdAggregatorDecimals
+            ethUsdAggregatorDecimals,
+            DECIMALS
           );
     }
 
@@ -32,16 +36,13 @@ contract StablecoinPriceAdapter is IStablecoinPriceAdapter   {
         int256 assetPrice = assetUsdAggregator.latestAnswer();
         int256 ethPrice = ethUsdAggregator.latestAnswer();
         
-        return (assetPrice * decimalsMultiplier) / ethPrice;
-    }
-
-    function decimals() override external pure returns(uint8) {
-        return resultDecimals;
+        return (assetPrice * DECIMALS_MULTIPLIER) / ethPrice;
     }
 
     function _calcDecimalsMultiplier(
         uint8 assetDecimals, 
-        uint8 ethDecimals
+        uint8 ethDecimals,
+        uint8 resultDecimals
     ) internal pure returns(int256) {
         int256 multiplier = int256(10 ** resultDecimals);
         if (assetDecimals < ethDecimals) {
