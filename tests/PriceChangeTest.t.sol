@@ -11,7 +11,9 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
 
   uint8 public constant MAX_DIFF_PERCENTAGE = 2;
 
-  function setUp() public {}
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+  }
 
   function testStablecoinPriceAdapter() public {
 

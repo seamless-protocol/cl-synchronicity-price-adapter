@@ -101,7 +101,7 @@ forge build
 ### Test
 
 ```sh
-forge test --fork-url ethereum --fork-block-number <BLOCK_NUM>
+forge test
 ```
 
 ### Copyright

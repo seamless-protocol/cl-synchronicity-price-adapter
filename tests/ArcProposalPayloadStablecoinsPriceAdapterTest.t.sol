@@ -12,7 +12,9 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
   Test,
   ArcProposalPayloadStablecoinsPriceAdapter
 {
-  function setUp() public {}
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+  }
 
   function testProposal() public {
     (

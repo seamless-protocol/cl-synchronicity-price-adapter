@@ -11,7 +11,9 @@ contract StablecoinPriceAdapterFormulaTest is Test {
   IChainlinkAggregator public constant ETH_USD_AGGREGATOR = 
     IChainlinkAggregator(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419);
 
-  function setUp() public {}
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+  }
 
   function testFormula() public {
     uint256 TESTS = 10;

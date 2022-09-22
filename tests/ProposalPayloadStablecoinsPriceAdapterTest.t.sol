@@ -13,7 +13,9 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is
   Test, 
   ProposalPayloadStablecoinsPriceAdapter 
 {
-  function setUp() public {}
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+  }
 
   function testProposal() public {
     (
