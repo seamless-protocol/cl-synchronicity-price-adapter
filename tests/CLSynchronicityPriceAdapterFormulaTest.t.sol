@@ -16,12 +16,12 @@ contract StablecoinPriceAdapterFormulaTest is Test {
   }
 
   function testFormula() public {
-    uint256 TESTS = 10;
+    uint256 TESTS_NUM = 10;
   
     int256 ethPrice = ETH_USD_AGGREGATOR.latestAnswer();
     uint8 ethAggregatorDecimals = ETH_USD_AGGREGATOR.decimals();
 
-    for (uint256 i = 1; i <= TESTS; i++) {
+    for (uint256 i = 1; i <= TESTS_NUM; i++) {
       address mockAggregator = address(0);
       int256 mockPrice = ethPrice / int256(i);
       _setMockPrice(mockAggregator, mockPrice);
