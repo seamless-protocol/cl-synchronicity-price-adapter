@@ -4,8 +4,6 @@ pragma solidity ^0.8.4;
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
-error DecimalsMultiplierIsZero();
-
 contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter   {
     IChainlinkAggregator public immutable BASE_TO_PEG;
     IChainlinkAggregator public immutable ASSET_TO_PEG;
