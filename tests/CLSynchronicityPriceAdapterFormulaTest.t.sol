@@ -23,7 +23,7 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     for (uint256 i = 1; i <= TESTS_NUM; i++) {
       address mockAggregator = address(0);
       int256 mockPrice = ethPrice / int256(i);
-      _setMockPrice(mockAggregator, mockPrice);
+      _setMockPrice(mockAggregator, mockPrice, 8);
 
       CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
         address(ETH_USD_AGGREGATOR),
@@ -43,11 +43,33 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     }
   }
 
-  function _setMockPrice(address mockAggregator, int256 mockPrice) internal {
+  function testPriceIsReturnedWhenResultDecimalsIsLessThanDiff() public {
+    address mockAggregator1 = address(0);
+    address mockAggregator2 = address(1);
+
+    _setMockPrice(mockAggregator1, 100, 2);
+    _setMockPrice(mockAggregator2, 10000000, 7);
+
+    CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
+      mockAggregator1,
+      mockAggregator2,
+      4
+    );
+
+    // 10000000 * 10^4 * 10^2 / 100 * 10^7 = 10000
+    int256 price = adapter.latestAnswer();
+    assertEq(price, 10000);
+  }
+
+  function _setMockPrice(
+    address mockAggregator,
+    int256 mockPrice,
+    uint256 decimals
+  ) internal {
     bytes memory latestAnswerCall = abi.encodeWithSignature('latestAnswer()');
     bytes memory decimalsCall = abi.encodeWithSignature('decimals()');
 
     vm.mockCall(mockAggregator, latestAnswerCall, abi.encode(mockPrice));
-    vm.mockCall(mockAggregator, decimalsCall, abi.encode(8));
+    vm.mockCall(mockAggregator, decimalsCall, abi.encode(decimals));
   }
 }

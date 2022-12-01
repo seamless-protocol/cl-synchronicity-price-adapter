@@ -27,10 +27,16 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   uint8 public immutable DECIMALS;
 
   /**
-   * @notice Multiplier used in formula for calculating price to
+   * @notice First multiplier used in formula for calculating price to
    * @notice achive desired number of resulting decimals.
    */
-  int256 public immutable DECIMALS_MULTIPLIER;
+  int256 public immutable DECIMALS_MULTIPLIER_1;
+
+  /**
+   * @notice Second multiplier used in formula for calculating price to
+   * @notice achive desired number of resulting decimals.
+   */
+  int256 public immutable DECIMALS_MULTIPLIER_2;
 
   /**
    * @notice Maximum number of resulting and feed decimals
@@ -39,11 +45,11 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
   constructor(
     address baseToPegAggregatorAddress,
-    address asseToPegAggregatorAddress,
+    address assetToPegAggregatorAddress,
     uint8 decimals
   ) {
     BASE_TO_PEG = IChainlinkAggregator(baseToPegAggregatorAddress);
-    ASSET_TO_PEG = IChainlinkAggregator(asseToPegAggregatorAddress);
+    ASSET_TO_PEG = IChainlinkAggregator(assetToPegAggregatorAddress);
 
     if (decimals > MAX_DECIMALS) revert DecimalsAboveLimit();
     if (BASE_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
@@ -51,33 +57,16 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
     DECIMALS = decimals;
 
-    DECIMALS_MULTIPLIER = _calcDecimalsMultiplier(
-      ASSET_TO_PEG.decimals(),
-      BASE_TO_PEG.decimals(),
-      DECIMALS
-    );
-
-    if (DECIMALS_MULTIPLIER == 0) revert DecimalsMultiplierIsZero();
+    DECIMALS_MULTIPLIER_1 = int256(10 ** (decimals + BASE_TO_PEG.decimals()));
+    DECIMALS_MULTIPLIER_2 = int256(10 ** ASSET_TO_PEG.decimals());
   }
 
   function latestAnswer() external view override returns (int256) {
     int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
     int256 baseToPegPrice = BASE_TO_PEG.latestAnswer();
 
-    return (assetToPegPrice * DECIMALS_MULTIPLIER) / baseToPegPrice;
-  }
-
-  function _calcDecimalsMultiplier(
-    uint8 assetToPegDecimals,
-    uint8 baseToPegDecimals,
-    uint8 resultDecimals
-  ) internal pure returns (int256) {
-    int256 multiplier = int256(10 ** resultDecimals);
-    if (assetToPegDecimals < baseToPegDecimals) {
-      multiplier *= int256(10 ** (baseToPegDecimals - assetToPegDecimals));
-    } else {
-      multiplier /= int256(10 ** (assetToPegDecimals - baseToPegDecimals));
-    }
-    return multiplier;
+    return
+      (assetToPegPrice * DECIMALS_MULTIPLIER_1) /
+      (baseToPegPrice * DECIMALS_MULTIPLIER_2);
   }
 }
