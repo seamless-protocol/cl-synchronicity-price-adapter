@@ -28,7 +28,6 @@ interface ITimelockExecutor {
   function getDelay() external view returns (uint256);
 }
 
-
 library TimelockHelpers {
   address public constant SHORT_EXECUTOR =
     0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
@@ -59,7 +58,7 @@ library TimelockHelpers {
     string memory signature,
     bytes memory calldatabytes,
     bool withDelegatecall
-  ) internal pure returns(ITimelockExecutor.SPropQueueParams memory params) {
+  ) internal pure returns (ITimelockExecutor.SPropQueueParams memory params) {
     params.targets = new address[](1);
     params.targets[0] = target;
 
@@ -83,6 +82,4 @@ library TimelockHelpers {
   function getTimelockExecutorDelay() internal view returns (uint256) {
     return TIMELOCK_EXECUTOR.getDelay();
   }
-
-
 }

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import './CLSynchronicityPriceAdapter.sol';
-import {IAaveOracle} from "aave-address-book/AaveV2.sol";
-import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
+import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
+import {AaveV2Ethereum} from 'aave-address-book/AaveAddressBook.sol';
 
 /**
  * @title ProposalPayloadStablecoinsPriceAdapter
@@ -11,11 +11,14 @@ import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
  * @notice Aave governance payload to add price adapter for stable coins
  */
 contract ProposalPayloadStablecoinsPriceAdapter {
-
-  address public constant ETH_USD_AGGREGATOR = 
+  address public constant ETH_USD_AGGREGATOR =
     0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
 
-  function _initAssetAggregators() internal pure returns(address[] memory, address[] memory) {
+  function _initAssetAggregators()
+    internal
+    pure
+    returns (address[] memory, address[] memory)
+  {
     address[] memory assets = new address[](10);
     address[] memory aggregators = new address[](10);
 
@@ -64,7 +67,7 @@ contract ProposalPayloadStablecoinsPriceAdapter {
 
   function execute() external {
     (
-      address[] memory assets, 
+      address[] memory assets,
       address[] memory aggregators
     ) = _initAssetAggregators();
     address[] memory adapters = new address[](assets.length);

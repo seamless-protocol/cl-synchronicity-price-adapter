@@ -41,9 +41,10 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
     _validate(assets, aggregators);
   }
 
-  function _validate(address[] memory assets, address[] memory aggregators)
-    internal
-  {
+  function _validate(
+    address[] memory assets,
+    address[] memory aggregators
+  ) internal {
     //Check if source for every asset is changed
     for (uint8 i = 0; i < assets.length; i++) {
       address newSource = AaveV2EthereumArc.ORACLE.getSourceOfAsset(assets[i]);

@@ -63,15 +63,13 @@ interface IAaveGov {
 
   function submitVote(uint256 proposalId, bool support) external;
 
-  function getProposalById(uint256 proposalId)
-    external
-    view
-    returns (ProposalWithoutVotes memory);
+  function getProposalById(
+    uint256 proposalId
+  ) external view returns (ProposalWithoutVotes memory);
 
-  function getProposalState(uint256 proposalId)
-    external
-    view
-    returns (ProposalState);
+  function getProposalState(
+    uint256 proposalId
+  ) external view returns (ProposalState);
 }
 
 library GovHelpers {
@@ -92,10 +90,10 @@ library GovHelpers {
   /**
    * Impersonate the ecosystem reserve and created the proposal.
    */
-  function createProposal(Vm vm, IAaveGov.SPropCreateParams memory params)
-    internal
-    returns (uint256)
-  {
+  function createProposal(
+    Vm vm,
+    IAaveGov.SPropCreateParams memory params
+  ) internal returns (uint256) {
     vm.deal(AAVE_WHALE, 1 ether);
     vm.startPrank(AAVE_WHALE);
     uint256 proposalId = GOV.create(
@@ -110,7 +108,7 @@ library GovHelpers {
     vm.stopPrank();
     return proposalId;
   }
-  
+
   /**
    * Creates proposal parameters arrays for one target
    */
@@ -122,7 +120,7 @@ library GovHelpers {
     bytes memory calldatabytes,
     bool withDelegatecall,
     bytes32 ipfsHash
-  ) internal pure returns(IAaveGov.SPropCreateParams memory params) {
+  ) internal pure returns (IAaveGov.SPropCreateParams memory params) {
     params.executor = executor;
 
     params.targets = new address[](1);
@@ -143,11 +141,9 @@ library GovHelpers {
     params.ipfsHash = ipfsHash;
   }
 
-  function _getProposalSlot(uint256 proposalId)
-    private
-    pure
-    returns (bytes32 slot)
-  {
+  function _getProposalSlot(
+    uint256 proposalId
+  ) private pure returns (bytes32 slot) {
     uint256 proposalsMapSlot = 0x4;
     return
       bytes32(
@@ -170,11 +166,9 @@ library GovHelpers {
     GOV.execute(proposalId);
   }
 
-  function getProposalById(uint256 proposalId)
-    internal
-    view
-    returns (IAaveGov.ProposalWithoutVotes memory)
-  {
+  function getProposalById(
+    uint256 proposalId
+  ) internal view returns (IAaveGov.ProposalWithoutVotes memory) {
     return GOV.getProposalById(proposalId);
   }
 }

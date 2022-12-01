@@ -11,7 +11,6 @@ import {AaveV2EthereumArc} from 'aave-address-book/AaveAddressBook.sol';
  * @notice Aave governance payload to add price adapter for stable coins
  */
 contract ArcProposalPayloadStablecoinsPriceAdapter {
-
   address public constant ETH_USD_AGGREGATOR =
     0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
 

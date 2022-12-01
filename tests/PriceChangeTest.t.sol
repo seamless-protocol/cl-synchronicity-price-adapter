@@ -5,10 +5,9 @@ import {Test} from 'forge-std/Test.sol';
 
 import {ProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol';
 import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
-import {AaveV2Ethereum} from "aave-address-book/AaveAddressBook.sol";
+import {AaveV2Ethereum} from 'aave-address-book/AaveAddressBook.sol';
 
 contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
-
   uint8 public constant MAX_DIFF_PERCENTAGE = 2;
 
   function setUp() public {
@@ -16,31 +15,34 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
   }
 
   function testStablecoinPriceAdapter() public {
-
-    (address[] memory assets, address[] memory aggregators) = _initAssetAggregators();
+    (
+      address[] memory assets,
+      address[] memory aggregators
+    ) = _initAssetAggregators();
     address[] memory adapters = new address[](assets.length);
 
     for (uint8 i = 0; i < assets.length; i++) {
       CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
-          ETH_USD_AGGREGATOR,
-          aggregators[i],
-          18
+        ETH_USD_AGGREGATOR,
+        aggregators[i],
+        18
       );
 
       adapters[i] = address(adapter);
     }
 
     for (uint8 i = 0; i < assets.length; i++) {
-        uint256 currentPrice = AaveV2Ethereum.ORACLE.getAssetPrice(assets[i]);
-        uint256 newPrice = uint256(CLSynchronicityPriceAdapter(adapters[i]).latestAnswer());
-        
-        uint256 maximumDifference = (currentPrice * MAX_DIFF_PERCENTAGE) / 100;
-        uint256 lowerLimit = currentPrice - maximumDifference;
-        uint256 upperLimit = currentPrice + maximumDifference;
+      uint256 currentPrice = AaveV2Ethereum.ORACLE.getAssetPrice(assets[i]);
+      uint256 newPrice = uint256(
+        CLSynchronicityPriceAdapter(adapters[i]).latestAnswer()
+      );
 
-        assertTrue(newPrice >= lowerLimit);
-        assertTrue(newPrice <= upperLimit);
+      uint256 maximumDifference = (currentPrice * MAX_DIFF_PERCENTAGE) / 100;
+      uint256 lowerLimit = currentPrice - maximumDifference;
+      uint256 upperLimit = currentPrice + maximumDifference;
+
+      assertTrue(newPrice >= lowerLimit);
+      assertTrue(newPrice <= upperLimit);
     }
   }
-
 }

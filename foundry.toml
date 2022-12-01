@@ -5,6 +5,8 @@ script = 'scripts'
 out = 'out'
 libs = ['lib']
 remappings = [
+    'forge-std/=lib/forge-std/src/',
+    'aave-address-book/=lib/aave-address-book/src/',
 ]
 
 [rpc_endpoints]
