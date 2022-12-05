@@ -27,18 +27,6 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   uint8 public immutable DECIMALS;
 
   /**
-   * @notice First multiplier used in formula for calculating price to
-   * @notice achive desired number of resulting decimals.
-   */
-  int256 public immutable DECIMALS_MULTIPLIER_1;
-
-  /**
-   * @notice Second multiplier used in formula for calculating price to
-   * @notice achive desired number of resulting decimals.
-   */
-  int256 public immutable DECIMALS_MULTIPLIER_2;
-
-  /**
    * @notice Maximum number of resulting and feed decimals
    */
   uint8 public constant MAX_DECIMALS = 18;
@@ -55,18 +43,16 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
     if (BASE_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
     if (ASSET_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
 
-    DECIMALS = decimals;
+    if (BASE_TO_PEG.decimals() != ASSET_TO_PEG.decimals())
+      revert DecimalsNotEqual();
 
-    DECIMALS_MULTIPLIER_1 = int256(10 ** (decimals + BASE_TO_PEG.decimals()));
-    DECIMALS_MULTIPLIER_2 = int256(10 ** ASSET_TO_PEG.decimals());
+    DECIMALS = decimals;
   }
 
   function latestAnswer() external view override returns (int256) {
     int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
     int256 baseToPegPrice = BASE_TO_PEG.latestAnswer();
 
-    return
-      (assetToPegPrice * DECIMALS_MULTIPLIER_1) /
-      (baseToPegPrice * DECIMALS_MULTIPLIER_2);
+    return (assetToPegPrice * int256(10 ** DECIMALS)) / (baseToPegPrice);
   }
 }

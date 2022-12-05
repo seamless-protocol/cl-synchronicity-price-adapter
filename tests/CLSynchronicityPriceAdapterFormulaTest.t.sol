@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {Test} from 'forge-std/Test.sol';
 
 import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
+import {ICLSynchronicityPriceAdapter} from '../src/interfaces/ICLSynchronicityPriceAdapter.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
 
 contract StablecoinPriceAdapterFormulaTest is Test {
@@ -43,22 +44,16 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     }
   }
 
-  function testPriceIsReturnedWhenResultDecimalsIsLessThanDiff() public {
+  function testConstructorIsRevertedWhenDecimalsIsDifferent() public {
     address mockAggregator1 = address(0);
     address mockAggregator2 = address(1);
 
-    _setMockPrice(mockAggregator1, 100, 2);
-    _setMockPrice(mockAggregator2, 10000000, 7);
+    _setMockPrice(mockAggregator1, 1000, 3);
+    _setMockPrice(mockAggregator2, 10000, 4);
 
-    CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
-      mockAggregator1,
-      mockAggregator2,
-      4
-    );
+    vm.expectRevert(ICLSynchronicityPriceAdapter.DecimalsNotEqual.selector);
 
-    // 10000000 * 10^4 * 10^2 / 100 * 10^7 = 10000
-    int256 price = adapter.latestAnswer();
-    assertEq(price, 10000);
+    new CLSynchronicityPriceAdapter(mockAggregator1, mockAggregator2, 4);
   }
 
   function _setMockPrice(
