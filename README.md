@@ -1,44 +1,53 @@
 # Price adapter for stablecoins
+
 Repository containing the necessary smart contracts to propose using price adapter for stablecoins on the **Aave v2 Ethereum** and **Aave Arc** markets.
 
 The Aave v2 market on Ethereum uses ETH based oracles to calculate the collateral value, debt value and health factor of a user. This, coupled with the delay at which different price feeds update, introduces unnecessary volatility in positions that involve stablecoins used both as collateral and as debt. The proposal is to replace the current ETH based oracles for stablecoins by using USD pairs instead, and normalizing the USD price using the ETH oracle. This reduces the volatility between stablecoins as all the stablecoin price feeds will update atomically when the ETH price changes.
 
-### AaveOracle 
+### AaveOracle
 
 Affected smart contract is `AaveOracle`, where currently all asset sources are set to [Chainlink Data Feeds](https://docs.chain.link/docs/ethereum-addresses/) for pairs $Asset / ETH$.
 
 Proposal is to deploy `CLSynchronicityPriceAdapter` for all stablecoin assets, which will calculate the price of `Asset / ETH` by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`, using the formula:
 $$Price(Asset / ETH) = {DataFeed(Asset / USD) \over DataFeed(ETH / USD)}$$
 
-Proposal is to change asset source for all stablecoin assets to be `CLSynchronicityPriceAdapter` which calculates price by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`. 
+Proposal is to change asset source for all stablecoin assets to be `CLSynchronicityPriceAdapter` which calculates price by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`.
 
 ### Other Aave markets
 
 Same idea can be used for other Aave markets where `USD` is base currency to peg group of ETH-correlated assets to the value of `ETH`.
 
-
 ## Implementations
 
 ### Price Adapter
+
 [CLSynchronicityPriceAdapter](/src/contracts/CLSynchronicityPriceAdapter.sol)
 
 - Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / USD` and `ETH / USD` are set.
-- Using this two feeds, it calculates the price for pair `Asset / ETH`. 
+- Feeds must have the same decimals value.
+- Using this two feeds, it calculates the price for pair `Asset / ETH`.
+- Returning price is calculated with 18 decimals.
+
+[CLSynchronicityPriceAdapterPegToBase](/src/contracts/CLSynchronicityPriceAdapterPegToBase.sol)
+
+- Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / ETH` and `ETH / USD` are set.
+- Using this two feeds, it calculates the price for pair `Asset / USD`.
 - Returning price is calculated with 18 decimals.
 
 ### Governance Payloads
 
 [ProposalPayloadStablecoinsPriceAdapter](/src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol)
 
-- Proposal payload for the Aave v2 Ethereum market. 
+- Proposal payload for the Aave v2 Ethereum market.
 - For all Aave v2 Ethereum stablecoin assets deploys `CLSynchronicityPriceAdapter` and sets it as an asset source by calling `setAssetSources` function on the `AaveOracle` contract.
 
 [ArcProposalPayloadStablecoinsPriceAdapter](/src/contracts/ArcProposalPayloadStablecoinsPriceAdapter.sol)
 
-- Proposal payload for the Aave Arc market. 
+- Proposal payload for the Aave Arc market.
 - For all Aave Arc stablecoin assets deploys `CLSynchronicityPriceAdapter` and sets it as an asset source by calling `setAssetSources` function on the `AaveOracle` contract.
 
 ## Aave v2 Ethereum stablecoin assets and USD price feeds
+
 List of affected Aave v2 Ethereum stablecoin assets and used Chainlink Data Feeds for `Asset / USD` pair.
 | Asset | Asset address | Chainlink Data Feed address |
 | --- | --- | --- |
@@ -54,12 +63,12 @@ List of affected Aave v2 Ethereum stablecoin assets and used Chainlink Data Feed
 | LUSD | 0x5f98805A4E8be255a32880FDeC7F6728C6568bA0 | 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0 |
 
 ## Aave v2 ARC stablecoin assets and USD price feeds
+
 List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for `Asset / USD` pair.
 
-| Asset | Asset address | Chainlink Data Feed address |
-| --- | --- | --- |
-| USDC | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6 |
-
+| Asset | Asset address                              | Chainlink Data Feed address                |
+| ----- | ------------------------------------------ | ------------------------------------------ |
+| USDC  | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6 |
 
 ## Security
 
@@ -81,7 +90,6 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 [ArcProposalPayloadStablecoinsPriceAdapterTest](./src/test/ArcProposalPayloadStablecoinsPriceAdapterTest.sol)
 
 - Validates that after proposal in Aave v2 Ethereum market is accepted, all asset sources for stablecoin assets are changed.
-
 
 ### Audits
 
