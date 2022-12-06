@@ -21,7 +21,7 @@ Same idea can be used for other Aave markets where `USD` is base currency to peg
 
 ### Price Adapter
 
-[CLSynchronicityPriceAdapter](/src/contracts/CLSynchronicityPriceAdapter.sol)
+[CLSynchronicityPriceAdapterBaseToPeg](/src/contracts/CLSynchronicityPriceAdapter.sol)
 
 - Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / USD` and `ETH / USD` are set.
 - Feeds must have the same decimals value.
@@ -32,6 +32,11 @@ Same idea can be used for other Aave markets where `USD` is base currency to peg
 
 - Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / ETH` and `ETH / USD` are set.
 - Using this two feeds, it calculates the price for pair `Asset / USD`.
+- Returning price is calculated with 18 decimals.
+
+[CLwstETHSynchronicityPriceAdapter](/src/contracts/CLwstETHSynchronicityPriceAdapter.sol)
+
+- Price adapter smart contract which calculates `wstETH / USD` price based on `stETH / ETH` and `ETH / USD` feeds.
 - Returning price is calculated with 18 decimals.
 
 ### Governance Payloads

@@ -59,9 +59,11 @@ contract CLSynchronicityPriceAdapterPegToBase is ICLSynchronicityPriceAdapter {
     DECIMALS = decimals;
 
     // equal to 10 to the power of the sum decimals of feeds
-    DENOMINATOR = int256(
-      10 ** (PEG_TO_BASE.decimals() + ASSET_TO_PEG.decimals())
-    );
+    unchecked {
+      DENOMINATOR = int256(
+        10 ** (PEG_TO_BASE.decimals() + ASSET_TO_PEG.decimals())
+      );
+    }
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
