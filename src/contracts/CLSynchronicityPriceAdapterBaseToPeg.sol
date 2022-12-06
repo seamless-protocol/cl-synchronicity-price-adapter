@@ -5,12 +5,14 @@ import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
 /**
- * @title CLSynchronicityPriceAdapter
+ * @title CLSynchronicityPriceAdapterBaseToPeg
  * @author BGD Labs
  * @notice Price adapter to calculate price of (Asset / Base) pair by using
  * @notice Chainlink Data Feeds for (Asset / Peg) and (Base / Peg) pairs.
+ * @notice For example it can be used to calculate USDC / ETH
+ * @notice based on USDC / USD and ETH / USD feeds.
  */
-contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
+contract CLSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAdapter {
   /**
    * @notice Price feed for (Base / Peg) pair
    */
@@ -31,6 +33,11 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
    */
   uint8 public constant MAX_DECIMALS = 18;
 
+  /**
+   * @param baseToPegAggregatorAddress the address of BASE / PEG feed
+   * @param assetToPegAggregatorAddress the address of the ASSET / PEG feed
+   * @param decimals precision of the answer
+   */
   constructor(
     address baseToPegAggregatorAddress,
     address assetToPegAggregatorAddress,
@@ -41,7 +48,6 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
     if (decimals > MAX_DECIMALS) revert DecimalsAboveLimit();
     if (BASE_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
-    if (ASSET_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
 
     if (BASE_TO_PEG.decimals() != ASSET_TO_PEG.decimals())
       revert DecimalsNotEqual();
@@ -49,6 +55,7 @@ contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
     DECIMALS = decimals;
   }
 
+  /// @inheritdoc ICLSynchronicityPriceAdapter
   function latestAnswer() external view override returns (int256) {
     int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
     int256 baseToPegPrice = BASE_TO_PEG.latestAnswer();

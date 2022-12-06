@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {Test} from 'forge-std/Test.sol';
 
 import {ProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol';
-import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
+import {CLSynchronicityPriceAdapterBaseToPeg} from '../src/contracts/CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {AaveV2Ethereum} from 'aave-address-book/AaveAddressBook.sol';
 
 contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
@@ -22,11 +22,11 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
     address[] memory adapters = new address[](assets.length);
 
     for (uint8 i = 0; i < assets.length; i++) {
-      CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
-        ETH_USD_AGGREGATOR,
-        aggregators[i],
-        18
-      );
+      CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
+          ETH_USD_AGGREGATOR,
+          aggregators[i],
+          18
+        );
 
       adapters[i] = address(adapter);
     }
@@ -34,7 +34,7 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
     for (uint8 i = 0; i < assets.length; i++) {
       uint256 currentPrice = AaveV2Ethereum.ORACLE.getAssetPrice(assets[i]);
       uint256 newPrice = uint256(
-        CLSynchronicityPriceAdapter(adapters[i]).latestAnswer()
+        CLSynchronicityPriceAdapterBaseToPeg(adapters[i]).latestAnswer()
       );
 
       uint256 maximumDifference = (currentPrice * MAX_DIFF_PERCENTAGE) / 100;

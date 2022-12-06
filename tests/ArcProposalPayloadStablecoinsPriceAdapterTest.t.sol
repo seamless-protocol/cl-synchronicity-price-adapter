@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {Test} from 'forge-std/Test.sol';
 
 import {ArcProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ArcProposalPayloadStablecoinsPriceAdapter.sol';
-import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
+import {CLSynchronicityPriceAdapterBaseToPeg} from '../src/contracts/CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {TimelockHelpers, ITimelockExecutor} from './helpers/TimelockHelpers.sol';
 import {AaveV2EthereumArc} from 'aave-address-book/AaveAddressBook.sol';
 
@@ -49,7 +49,7 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
     for (uint8 i = 0; i < assets.length; i++) {
       address newSource = AaveV2EthereumArc.ORACLE.getSourceOfAsset(assets[i]);
       address assetUsdAggregator = address(
-        CLSynchronicityPriceAdapter(newSource).ASSET_TO_PEG()
+        CLSynchronicityPriceAdapterBaseToPeg(newSource).ASSET_TO_PEG()
       );
       assertTrue(assetUsdAggregator == aggregators[i]);
     }
