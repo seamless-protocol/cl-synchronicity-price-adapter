@@ -37,6 +37,11 @@ contract CLSynchronicityPriceAdapterPegToBase is ICLSynchronicityPriceAdapter {
    */
   uint8 public constant MAX_DECIMALS = 18;
 
+  /**
+   * @param pegToBaseAggregatorAddress the address of PEG / BASE feed
+   * @param assetToPegAggregatorAddress the address of the ASSET / PEG feed
+   * @param decimals precision of the answer
+   */
   constructor(
     address pegToBaseAggregatorAddress,
     address assetToPegAggregatorAddress,
@@ -51,12 +56,14 @@ contract CLSynchronicityPriceAdapterPegToBase is ICLSynchronicityPriceAdapter {
 
     DECIMALS = decimals;
 
+    // equal to 10 to the power of the sum decimals of feeds
     DENOMINATOR = int256(
       10 ** (PEG_TO_BASE.decimals() + ASSET_TO_PEG.decimals())
     );
   }
 
-  function latestAnswer() external view override returns (int256) {
+  /// @inheritdoc ICLSynchronicityPriceAdapter
+  function latestAnswer() public view virtual override returns (int256) {
     int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
     int256 pegToBasePrice = PEG_TO_BASE.latestAnswer();
 
