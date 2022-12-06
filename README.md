@@ -1,23 +1,24 @@
-# Price adapter for stablecoins
+# Synchronicity Price Adapters
 
-Repository containing the necessary smart contracts to propose using price adapter for stablecoins on the **Aave v2 Ethereum** and **Aave Arc** markets.
+The repository contains the Price Adapter contracts for the assets, in which prices are correlated with different token rather than the pool's base one.
 
-The Aave v2 market on Ethereum uses ETH based oracles to calculate the collateral value, debt value and health factor of a user. This, coupled with the delay at which different price feeds update, introduces unnecessary volatility in positions that involve stablecoins used both as collateral and as debt. The proposal is to replace the current ETH based oracles for stablecoins by using USD pairs instead, and normalizing the USD price using the ETH oracle. This reduces the volatility between stablecoins as all the stablecoin price feeds will update atomically when the ETH price changes.
+For example, the Aave v2 pool on Ethereum uses ETH-based oracles to calculate the collateral value, debt value and health factor of a user. This, coupled with the delay at which different price feeds update, introduces unnecessary volatility in positions that involve stablecoins used both as collateral and as debt.
+Replacement of the current ETH-based oracles for stablecoins by using USD pairs instead will normalize the USD price using the ETH oracle and will reduce the volatility between stablecoins as all the stablecoin price feeds will update atomically when the ETH price changes.
+
+The same approach could be used for ETH-correlated assets on USD-based pools, for example, `stETH / ETH` and `ETH / USD` feeds could be used to calculate the `stETH` price.
+
+This repository also contains the proposal smart contracts for using price adapters for stablecoins on the **Aave v2 Ethereum** and **Aave Arc** pool.
 
 ### AaveOracle
 
 Affected smart contract is `AaveOracle`, where currently all asset sources are set to [Chainlink Data Feeds](https://docs.chain.link/docs/ethereum-addresses/) for pairs $Asset / ETH$.
 
-Proposal is to deploy `CLSynchronicityPriceAdapter` for all stablecoin assets, which will calculate the price of `Asset / ETH` by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`, using the formula:
+Proposal is to deploy `CLSynchronicityPriceAdapterBaseToPeg` for all stablecoin assets, which will calculate the price of `Asset / ETH` by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`, using the formula:
 $$Price(Asset / ETH) = {DataFeed(Asset / USD) \over DataFeed(ETH / USD)}$$
 
 Proposal is to change asset source for all stablecoin assets to be `CLSynchronicityPriceAdapter` which calculates price by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`.
 
-### Other Aave markets
-
-Same idea can be used for other Aave markets where `USD` is base currency to peg group of ETH-correlated assets to the value of `ETH`.
-
-## Implementations
+## Implementation
 
 ### Price Adapter
 
@@ -43,12 +44,12 @@ Same idea can be used for other Aave markets where `USD` is base currency to peg
 
 [ProposalPayloadStablecoinsPriceAdapter](/src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol)
 
-- Proposal payload for the Aave v2 Ethereum market.
+- Proposal payload for the Aave v2 Ethereum pool.
 - For all Aave v2 Ethereum stablecoin assets deploys `CLSynchronicityPriceAdapter` and sets it as an asset source by calling `setAssetSources` function on the `AaveOracle` contract.
 
 [ArcProposalPayloadStablecoinsPriceAdapter](/src/contracts/ArcProposalPayloadStablecoinsPriceAdapter.sol)
 
-- Proposal payload for the Aave Arc market.
+- Proposal payload for the Aave Arc pool.
 - For all Aave Arc stablecoin assets deploys `CLSynchronicityPriceAdapter` and sets it as an asset source by calling `setAssetSources` function on the `AaveOracle` contract.
 
 ## Aave v2 Ethereum stablecoin assets and USD price feeds
@@ -79,22 +80,30 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 
 ### Foundry Tests
 
-[CLSynchronicityPriceAdapterFormulaTest](./src/test/CLSynchronicityPriceAdapterFormulaTest.sol)
+[CLSynchronicityPriceAdapterFormulaTest](./src/test/CLSynchronicityPriceAdapterFormulaTest.t.sol)
 
 - Validates that formula used in price adapter is correct.
 - For `TESTS_NUM` number of tests, makes mock aggregator with price of asset in `i-th` test set to $Price(ETH / USD) \over i$. Validates that price returned from the `CLSynchronicityPriceAdapter` is $1 ETHER /over i$.
 
-[PriceChangeTest](./src/test/PriceChangeTest.sol)
+[PriceChangeTest](./src/test/PriceChangeTest.t.sol)
 
 - Validates that price difference between price feed for pair `Asset / ETH` and price from the adapter is less than `2%`.
 
-[ProposalPayloadStablecoinsPriceAdapterTest](./src/test/ProposalPayloadStablecoinsPriceAdapterTest.sol)
+[CLSynchronicityPriceAdapterPegToBaseTest](./src/test/CLSynchronicityPriceAdapterPegToBaseTest.t.sol)
 
-- Validates that after proposal in Aave v2 Ethereum market is accepted, all asset sources for stablecoin assets are changed.
+- Validates that formula used in price adapter is correct.
 
-[ArcProposalPayloadStablecoinsPriceAdapterTest](./src/test/ArcProposalPayloadStablecoinsPriceAdapterTest.sol)
+[CLwstETHSynchronicityPriceAdapterTest](./src/test/CLwstETHSynchronicityPriceAdapterTest.t.sol)
 
-- Validates that after proposal in Aave v2 Ethereum market is accepted, all asset sources for stablecoin assets are changed.
+- Validates that formula used in price adapter is correct.
+
+[ProposalPayloadStablecoinsPriceAdapterTest](./src/test/ProposalPayloadStablecoinsPriceAdapterTest.t.sol)
+
+- Validates that after proposal in Aave v2 Ethereum pool is accepted, all asset sources for stablecoin assets are changed.
+
+[ArcProposalPayloadStablecoinsPriceAdapterTest](./src/test/ArcProposalPayloadStablecoinsPriceAdapterTest.t.sol)
+
+- Validates that after proposal in Aave v2 Ethereum pool is accepted, all asset sources for stablecoin assets are changed.
 
 ### Audits
 

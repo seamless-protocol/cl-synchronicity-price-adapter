@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import './CLSynchronicityPriceAdapterBaseToPeg.sol';
+import {CLSynchronicityPriceAdapterBaseToPeg} from './CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {AaveV2EthereumArc} from 'aave-address-book/AaveAddressBook.sol';
 
