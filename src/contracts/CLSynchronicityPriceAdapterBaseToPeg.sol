@@ -5,12 +5,14 @@ import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
 /**
- * @title CLSynchronicityPriceAdapter
+ * @title CLSynchronicityPriceAdapterBaseToPeg
  * @author BGD Labs
  * @notice Price adapter to calculate price of (Asset / Base) pair by using
  * @notice Chainlink Data Feeds for (Asset / Peg) and (Base / Peg) pairs.
+ * @notice For example it can be used to calculate USDC / ETH
+ * @notice based on USDC / USD and ETH / USD feeds.
  */
-contract CLSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
+contract CLSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAdapter {
   /**
    * @notice Price feed for (Base / Peg) pair
    */

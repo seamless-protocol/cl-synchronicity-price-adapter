@@ -5,7 +5,7 @@ import {Test} from 'forge-std/Test.sol';
 import 'forge-std/console.sol';
 
 import {ProposalPayloadStablecoinsPriceAdapter} from '../src/contracts/ProposalPayloadStablecoinsPriceAdapter.sol';
-import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
+import {CLSynchronicityPriceAdapterBaseToPeg} from '../src/contracts/CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {GovHelpers, IAaveGov} from './helpers/AaveGovHelpers.sol';
 import {AaveV2Ethereum} from 'aave-address-book/AaveAddressBook.sol';
 
@@ -51,7 +51,7 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is
     for (uint8 i = 0; i < assets.length; i++) {
       address newSource = AaveV2Ethereum.ORACLE.getSourceOfAsset(assets[i]);
       address assetUsdAggregator = address(
-        CLSynchronicityPriceAdapter(newSource).ASSET_TO_PEG()
+        CLSynchronicityPriceAdapterBaseToPeg(newSource).ASSET_TO_PEG()
       );
       assertTrue(assetUsdAggregator == aggregators[i]);
     }

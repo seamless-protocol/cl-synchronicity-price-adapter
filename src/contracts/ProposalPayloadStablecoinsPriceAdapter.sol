@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import './CLSynchronicityPriceAdapter.sol';
+import './CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {AaveV2Ethereum} from 'aave-address-book/AaveAddressBook.sol';
 
@@ -74,11 +74,11 @@ contract ProposalPayloadStablecoinsPriceAdapter {
 
     // for each stable coin make price adapter
     for (uint8 i = 0; i < assets.length; i++) {
-      CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
-        ETH_USD_AGGREGATOR,
-        aggregators[i],
-        18
-      );
+      CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
+          ETH_USD_AGGREGATOR,
+          aggregators[i],
+          18
+        );
 
       adapters[i] = address(adapter);
     }

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 
-import {CLSynchronicityPriceAdapter} from '../src/contracts/CLSynchronicityPriceAdapter.sol';
+import {CLSynchronicityPriceAdapterBaseToPeg} from '../src/contracts/CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {ICLSynchronicityPriceAdapter} from '../src/interfaces/ICLSynchronicityPriceAdapter.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
 
@@ -26,11 +26,11 @@ contract StablecoinPriceAdapterFormulaTest is Test {
       int256 mockPrice = ethPrice / int256(i);
       _setMockPrice(mockAggregator, mockPrice, 8);
 
-      CLSynchronicityPriceAdapter adapter = new CLSynchronicityPriceAdapter(
-        address(ETH_USD_AGGREGATOR),
-        mockAggregator,
-        18
-      );
+      CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
+          address(ETH_USD_AGGREGATOR),
+          mockAggregator,
+          18
+        );
 
       int256 price = adapter.latestAnswer();
       int256 expectedPriceInEth = int256(1 ether / i);
@@ -53,7 +53,11 @@ contract StablecoinPriceAdapterFormulaTest is Test {
 
     vm.expectRevert(ICLSynchronicityPriceAdapter.DecimalsNotEqual.selector);
 
-    new CLSynchronicityPriceAdapter(mockAggregator1, mockAggregator2, 4);
+    new CLSynchronicityPriceAdapterBaseToPeg(
+      mockAggregator1,
+      mockAggregator2,
+      4
+    );
   }
 
   function _setMockPrice(

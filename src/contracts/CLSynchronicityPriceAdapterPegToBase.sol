@@ -9,6 +9,8 @@ import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceA
  * @author BGD Labs
  * @notice Price adapter to calculate price of (Asset / Base) pair by using
  * @notice Chainlink Data Feeds for (Asset / Peg) and (Peg / Base) pairs.
+ * @notice For example it can be used to calculate stETH / USD
+ * @notice based on stETH / ETH and ETH / USD feeds.
  */
 contract CLSynchronicityPriceAdapterPegToBase is ICLSynchronicityPriceAdapter {
   /**
