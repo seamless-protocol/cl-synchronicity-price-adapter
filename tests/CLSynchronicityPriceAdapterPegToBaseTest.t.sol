@@ -30,4 +30,52 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
       1000000000000000000
     );
   }
+
+  function testPegToBaseOracleReturnsNegative() public {
+    address mockAggregator1 = address(0);
+    address mockAggregator2 = address(1);
+
+    _setMockPrice(mockAggregator1, -1, 4);
+    _setMockPrice(mockAggregator2, 10000, 4);
+
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+        mockAggregator1,
+        mockAggregator2,
+        4
+      );
+
+    int256 price = adapter.latestAnswer();
+
+    assertEq(price, 0);
+  }
+
+  function testAssetToPegOracleReturnsZero() public {
+    address mockAggregator1 = address(0);
+    address mockAggregator2 = address(1);
+
+    _setMockPrice(mockAggregator1, 10000, 4);
+    _setMockPrice(mockAggregator2, 0, 4);
+
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+        mockAggregator1,
+        mockAggregator2,
+        4
+      );
+
+    int256 price = adapter.latestAnswer();
+
+    assertEq(price, 0);
+  }
+
+  function _setMockPrice(
+    address mockAggregator,
+    int256 mockPrice,
+    uint256 decimals
+  ) internal {
+    bytes memory latestAnswerCall = abi.encodeWithSignature('latestAnswer()');
+    bytes memory decimalsCall = abi.encodeWithSignature('decimals()');
+
+    vm.mockCall(mockAggregator, latestAnswerCall, abi.encode(mockPrice));
+    vm.mockCall(mockAggregator, decimalsCall, abi.encode(decimals));
+  }
 }

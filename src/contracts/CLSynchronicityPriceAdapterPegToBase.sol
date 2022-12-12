@@ -71,6 +71,10 @@ contract CLSynchronicityPriceAdapterPegToBase is ICLSynchronicityPriceAdapter {
     int256 assetToPegPrice = ASSET_TO_PEG.latestAnswer();
     int256 pegToBasePrice = PEG_TO_BASE.latestAnswer();
 
+    if (assetToPegPrice <= 0 || pegToBasePrice <= 0) {
+      return 0;
+    }
+
     return
       (assetToPegPrice * pegToBasePrice * int256(10 ** DECIMALS)) /
       (DENOMINATOR);

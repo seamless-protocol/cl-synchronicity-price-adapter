@@ -44,6 +44,42 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     }
   }
 
+  function testBaseToPegOracleReturnsZero() public {
+    address mockAggregator1 = address(0);
+    address mockAggregator2 = address(1);
+
+    _setMockPrice(mockAggregator1, 0, 4);
+    _setMockPrice(mockAggregator2, 10000, 4);
+
+    CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
+        mockAggregator1,
+        mockAggregator2,
+        4
+      );
+
+    int256 price = adapter.latestAnswer();
+
+    assertEq(price, 0);
+  }
+
+  function testAssetToPegOracleReturnsNegative() public {
+    address mockAggregator1 = address(0);
+    address mockAggregator2 = address(1);
+
+    _setMockPrice(mockAggregator1, 10000, 4);
+    _setMockPrice(mockAggregator2, -1, 4);
+
+    CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
+        mockAggregator1,
+        mockAggregator2,
+        4
+      );
+
+    int256 price = adapter.latestAnswer();
+
+    assertEq(price, 0);
+  }
+
   function testConstructorIsRevertedWhenDecimalsIsDifferent() public {
     address mockAggregator1 = address(0);
     address mockAggregator2 = address(1);
