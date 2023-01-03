@@ -11,6 +11,11 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   address public constant STETH_ETH_AGGREGATOR =
     0x86392dC19c0b719886221c78AB11eb8Cf5c52812;
 
+  address public constant BTC_USD_AGGREGATOR =
+    0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c;
+  address public constant WBTC_BTC_AGGREGATOR =
+    0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
   }
@@ -28,6 +33,22 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
       uint256(price),
       1295000000000000000000, // value calculated manually for selected block
       1000000000000000000
+    );
+  }
+
+  function testLatestAnswerWbtc() public {
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+        BTC_USD_AGGREGATOR,
+        WBTC_BTC_AGGREGATOR,
+        18
+      );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(
+      uint256(price),
+      19237000000000000000000, // value calculated manually for selected block
+      10 ** 18
     );
   }
 
