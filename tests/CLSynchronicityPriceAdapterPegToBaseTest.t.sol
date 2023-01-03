@@ -40,15 +40,15 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
         BTC_USD_AGGREGATOR,
         WBTC_BTC_AGGREGATOR,
-        18
+        8
       );
 
     int256 price = adapter.latestAnswer();
 
     assertApproxEqAbs(
       uint256(price),
-      19237000000000000000000, // value calculated manually for selected block
-      10 ** 18
+      1923700000000, // value calculated manually for selected block
+      10 ** 8
     );
   }
 

@@ -16,7 +16,7 @@ contract DeployWstETH is Script {
     new CLSynchronicityPriceAdapterPegToBase(
       BTC_USD_AGGREGATOR,
       WBTC_BTC_AGGREGATOR,
-      18
+      8
     );
 
     vm.stopBroadcast();
