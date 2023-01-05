@@ -17,17 +17,18 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   address public constant WBTC_BTC_AGGREGATOR =
     0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23;
 
-  uint256[6] internal forks;
+  uint256 public constant startBlock = 15588955;
+  uint256[8] internal forks;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+    vm.createSelectFork(vm.rpcUrl('ethereum'), startBlock);
 
-    uint256 blockNum = 15589000;
+    // uint256 blockNum = 15589000;
 
-    for (uint256 i; i < forks.length; i++) {
-      forks[i] = vm.createFork(vm.rpcUrl('ethereum'), blockNum);
-      blockNum += 500;
-    }
+    // for (uint256 i; i < forks.length; i++) {
+    //   forks[i] = vm.createFork(vm.rpcUrl('ethereum'), blockNum);
+    //   blockNum += 100;
+    // }
   }
 
   function testLatestAnswer() public {
@@ -63,22 +64,21 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   }
 
   function testLatestAnswerWbtcRelativelyBtcFeed() public {
-    for (uint256 i; i < forks.length; i++) {
-      vm.selectFork(forks[i]);
+    IChainlinkAggregator aggregator = IChainlinkAggregator(BTC_USD_AGGREGATOR);
 
+    for (uint256 i; i < 10; i++) {
       CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
           BTC_USD_AGGREGATOR,
           WBTC_BTC_AGGREGATOR,
           8
         );
-      IChainlinkAggregator aggregator = IChainlinkAggregator(
-        BTC_USD_AGGREGATOR
-      );
 
       int256 price = adapter.latestAnswer();
       int256 btcPrice = aggregator.latestAnswer();
 
       assertApproxEqRel(price, btcPrice, 0.0003e18); // 0.03%
+
+      vm.rollFork(startBlock + 500 * (i + 1));
     }
   }
 
