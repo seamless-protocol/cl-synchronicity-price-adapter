@@ -17,7 +17,7 @@ contract DeployWstETH is Script {
     new CLwstETHSynchronicityPriceAdapter(
       ETH_USD_AGGREGATOR,
       STETH_ETH_AGGREGATOR,
-      18,
+      8,
       STETH
     );
 

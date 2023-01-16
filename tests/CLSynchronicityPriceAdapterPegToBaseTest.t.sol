@@ -17,18 +17,10 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   address public constant WBTC_BTC_AGGREGATOR =
     0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23;
 
-  uint256 public constant startBlock = 15588955;
-  uint256[8] internal forks;
+  uint256 public constant START_BLOCK = 15588955;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ethereum'), startBlock);
-
-    // uint256 blockNum = 15589000;
-
-    // for (uint256 i; i < forks.length; i++) {
-    //   forks[i] = vm.createFork(vm.rpcUrl('ethereum'), blockNum);
-    //   blockNum += 100;
-    // }
+    vm.createSelectFork(vm.rpcUrl('ethereum'), START_BLOCK);
   }
 
   function testLatestAnswer() public {
@@ -78,7 +70,7 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
       assertApproxEqRel(price, btcPrice, 0.0003e18); // 0.03%
 
-      vm.rollFork(startBlock + 500 * (i + 1));
+      vm.rollFork(START_BLOCK + 500 * (i + 1));
     }
   }
 
