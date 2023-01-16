@@ -10,7 +10,7 @@ remappings = [
 ]
 
 [rpc_endpoints]
-mainnet="${RPC_ETHEREUM}"
+mainnet="${RPC_MAINNET}"
 
 [etherscan]
 mainnet={key="${ETHERSCAN_API_KEY_MAINNET}",chainId=1}

@@ -20,7 +20,7 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   uint256 public constant START_BLOCK = 15588955;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ethereum'), START_BLOCK);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), START_BLOCK);
   }
 
   function testLatestAnswer() public {
