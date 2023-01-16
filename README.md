@@ -18,6 +18,11 @@ $$Price(Asset / ETH) = {DataFeed(Asset / USD) \over DataFeed(ETH / USD)}$$
 
 Proposal is to change asset source for all stablecoin assets to be `CLSynchronicityPriceAdapter` which calculates price by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`.
 
+### Aave V3
+
+Price adapter for `wstETH` added to calculate `wstETH / USD` price based on `stETH / ETH` and `ETH / USD` feeds using formula:
+$$Price(wstETH / USD) = {DataFeed(ETH / USD) * DataFeed(stETH / ETH) * ratio(wstETH / stETH)}$$
+
 ## Implementation
 
 ### Price Adapter
@@ -38,7 +43,7 @@ Proposal is to change asset source for all stablecoin assets to be `CLSynchronic
 [CLwstETHSynchronicityPriceAdapter](/src/contracts/CLwstETHSynchronicityPriceAdapter.sol)
 
 - Price adapter smart contract which calculates `wstETH / USD` price based on `stETH / ETH` and `ETH / USD` feeds.
-- Returning price is calculated with 18 decimals.
+- Returning price is calculated with 8 decimals.
 
 ### Governance Payloads
 
@@ -107,7 +112,8 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 
 ### Audits
 
-_TBD_
+[SigmaP](./security/sigmap/audit-report.md)
+[Certora](./security/Certora/Certora%20Review.pdf)
 
 ## Setup
 
