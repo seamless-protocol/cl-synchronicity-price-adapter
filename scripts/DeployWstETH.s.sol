@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {Script} from 'forge-std/Script.sol';
-import {console} from 'forge-std/console.sol';
 import {CLwstETHSynchronicityPriceAdapter} from '../src/contracts/CLwstETHSynchronicityPriceAdapter.sol';
 
 contract DeployWstETH is Script {
@@ -18,7 +17,7 @@ contract DeployWstETH is Script {
     new CLwstETHSynchronicityPriceAdapter(
       ETH_USD_AGGREGATOR,
       STETH_ETH_AGGREGATOR,
-      18,
+      8,
       STETH
     );
 
