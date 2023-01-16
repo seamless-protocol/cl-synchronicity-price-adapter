@@ -12,7 +12,7 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     IChainlinkAggregator(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 15588955);
   }
 
   function testFormula() public {

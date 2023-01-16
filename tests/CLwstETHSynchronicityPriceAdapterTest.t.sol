@@ -13,7 +13,7 @@ contract CLwstETHSynchronicityPriceAdapterTest is Test {
   address public constant STETH = 0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ethereum'), 15588955);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 15588955);
   }
 
   function testLatestAnswer() public {

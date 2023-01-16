@@ -10,7 +10,7 @@ import {CLSynchronicityPriceAdapterPegToBase} from './CLSynchronicityPriceAdapte
  * @title CLwstETHSynchronicityPriceAdapter
  * @author BGD Labs
  * @notice Price adapter to calculate price of (wstETH / USD) pair by using
- * @notice Chainlink Data Feeds for (wstETH / ETH) and (ETH / USd) pairs and (wstETH / stETH) ratio.
+ * @notice Chainlink Data Feeds for (stETH / ETH) and (ETH / USd) pairs and (wstETH / stETH) ratio.
  */
 contract CLwstETHSynchronicityPriceAdapter is
   CLSynchronicityPriceAdapterPegToBase

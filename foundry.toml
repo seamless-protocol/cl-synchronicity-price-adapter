@@ -10,6 +10,9 @@ remappings = [
 ]
 
 [rpc_endpoints]
-ethereum="${RPC_ETHEREUM}"
+mainnet="${RPC_MAINNET}"
+
+[etherscan]
+mainnet={key="${ETHERSCAN_API_KEY_MAINNET}",chainId=1}
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config
