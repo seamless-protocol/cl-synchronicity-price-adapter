@@ -1,27 +1,32 @@
 # Synchronicity Price Adapters
 
-The repository contains the Price Adapter contracts for the assets, in which prices are correlated with different token rather than the pool's base one.
+The repository contains the Price Adapter contracts for the assets, which prices are correlated with different token rather than the pool's base one. The primary focus of these adapters is to provide accurate and reliable pricing information for assets in relation to a reference token whether it is on ETH-based or USD-based pools.
 
-For example, the Aave v2 pool on Ethereum uses ETH-based oracles to calculate the collateral value, debt value and health factor of a user. This, coupled with the delay at which different price feeds update, introduces unnecessary volatility in positions that involve stablecoins used both as collateral and as debt.
+These price adapters could be used for a simple 2-step price conversion using two underlying oracles. One of the use-cases is to provide `WBTC / USD` price feed using Chainlink's `WBTC / BTC` and `BTC / USD` oracles. The same approach could be used for ETH-correlated assets, for example, `stETH / ETH` and `ETH / USD` feeds could be used to calculate the `stETH / USD` price.
+
+Another application of the adapter is to provide the reliable stablecoins prices on the ETH-based pools. For example, the Aave v2 pool on Ethereum uses ETH-based oracles to calculate the collateral value, debt value and health factor of a user. This, coupled with the delay at which different price feeds update, introduces unnecessary volatility in positions that involve stablecoins used both as collateral and as debt.
 Replacement of the current ETH-based oracles for stablecoins by using USD pairs instead will normalize the USD price using the ETH oracle and will reduce the volatility between stablecoins as all the stablecoin price feeds will update atomically when the ETH price changes.
 
-The same approach could be used for ETH-correlated assets on USD-based pools, for example, `stETH / ETH` and `ETH / USD` feeds could be used to calculate the `stETH` price.
+This repository also contains the proposal smart contracts for using price adapters for stablecoins on the **Aave v2 Ethereum** and **Aave Arc** pool and deployment scripts for `WBTC / USD` and `wstETH / USD` adapters.
 
-This repository also contains the proposal smart contracts for using price adapters for stablecoins on the **Aave v2 Ethereum** and **Aave Arc** pool.
+### Stablecoins
 
-### AaveOracle
-
-Affected smart contract is `AaveOracle`, where currently all asset sources are set to [Chainlink Data Feeds](https://docs.chain.link/docs/ethereum-addresses/) for pairs $Asset / ETH$.
-
-Proposal is to deploy `CLSynchronicityPriceAdapterBaseToPeg` for all stablecoin assets, which will calculate the price of `Asset / ETH` by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`, using the formula:
+The proposed change is to deploy `CLSynchronicityPriceAdapterBaseToPeg` for all stablecoin assets and utilize these adapters in the `AaveOracle` smart contract, in order to accurately calculate the price of the asset in relation to `ETH`.
+This will be achieved by querying [Chainlink Data Feeds](https://docs.chain.link/docs/ethereum-addresses/) for the pairs of `Asset/USD` and `ETH/USD`, then using the formula
 $$Price(Asset / ETH) = {DataFeed(Asset / USD) \over DataFeed(ETH / USD)}$$
+This will provide a more accurate representation of the value of the stablecoin assets.
 
-Proposal is to change asset source for all stablecoin assets to be `CLSynchronicityPriceAdapter` which calculates price by querying Chainlink Data Feeds for pairs `Asset / USD` and `ETH / USD`.
+### WBTC
 
-### Aave V3
+To provide the `WBTC / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `WBTC / BTC` and `BTC / USD` oracles is deployed.
 
-Price adapter for `wstETH` added to calculate `wstETH / USD` price based on `stETH / ETH` and `ETH / USD` feeds using formula:
-$$Price(wstETH / USD) = {DataFeed(ETH / USD) * DataFeed(stETH / ETH) * ratio(wstETH / stETH)}$$
+General formula for this adapter is
+$$Price(Asset / BASE) = {DataFeed(Asset / PEG) * DataFeed(Peg / BASE)}$$
+and it can be re-used for any simple 2-step conversion.
+
+### wstETH Adapter
+
+Special price adapter for `wstETH / USD` is added as additionaly to using `stETH / ETH` and `ETH / USD` price feeds it requires an extra step to get the ration between `stETH` and `wstETH` for the price calculation.
 
 ## Implementation
 
@@ -32,13 +37,13 @@ $$Price(wstETH / USD) = {DataFeed(ETH / USD) * DataFeed(stETH / ETH) * ratio(wst
 - Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / USD` and `ETH / USD` are set.
 - Feeds must have the same decimals value.
 - Using this two feeds, it calculates the price for pair `Asset / ETH`.
-- Returning price is calculated with 18 decimals.
+- Returning price is calculated with up to 18 decimals.
 
 [CLSynchronicityPriceAdapterPegToBase](/src/contracts/CLSynchronicityPriceAdapterPegToBase.sol)
 
 - Price adapter smart contract where `ChainlinkAggregator` addresses for `Asset / ETH` and `ETH / USD` are set.
 - Using this two feeds, it calculates the price for pair `Asset / USD`.
-- Returning price is calculated with 18 decimals.
+- Returning price is calculated with up to 18 decimals.
 
 [CLwstETHSynchronicityPriceAdapter](/src/contracts/CLwstETHSynchronicityPriceAdapter.sol)
 
@@ -56,6 +61,12 @@ $$Price(wstETH / USD) = {DataFeed(ETH / USD) * DataFeed(stETH / ETH) * ratio(wst
 
 - Proposal payload for the Aave Arc pool.
 - For all Aave Arc stablecoin assets deploys `CLSynchronicityPriceAdapter` and sets it as an asset source by calling `setAssetSources` function on the `AaveOracle` contract.
+
+### Deployment scripts
+
+[DeployWBTCAdapter](/scripts/DeployWBTCAdapter.s.sol) is used to deploy the price adapter for `WBTC / USD`.
+
+[DeployWstETH](/scripts/DeployWstETH.s.sol) is used to deploy adapter for `wstETH / USD`.
 
 ## Aave v2 Ethereum stablecoin assets and USD price feeds
 
@@ -80,6 +91,13 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 | Asset | Asset address                              | Chainlink Data Feed address                |
 | ----- | ------------------------------------------ | ------------------------------------------ |
 | USDC  | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6 |
+
+## Aave v3 assets
+
+| Asset  | Asset address                              | Chainlink Data Feed addresses                                                                              |
+| ------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| WBTC   | 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599 | WBTC/BTC: 0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23, BTC/USD: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c  |
+| wstETH | 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 | stETH/ETH: 0x86392dC19c0b719886221c78AB11eb8Cf5c52812, ETH/USD: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 |
 
 ## Security
 
@@ -113,6 +131,7 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 ### Audits
 
 [SigmaP](./security/sigmap/audit-report.md)
+
 [Certora](./security/Certora/Certora%20Review.pdf)
 
 ## Setup
@@ -144,4 +163,4 @@ forge test
 
 ### Copyright
 
-2022 BGD Labs
+2023 BGD Labs
