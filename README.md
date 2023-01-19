@@ -24,7 +24,7 @@ General formula for this adapter is
 $$Price(Asset / BASE) = {DataFeed(Asset / PEG) * DataFeed(Peg / BASE)}$$
 and it can be re-used for any simple 2-step conversion.
 
-Price adapter for Mainnet is deployed on the address [https://etherscan.io/address/0x230e0321cf38f09e247e50afc7801ea2351fe56f](https://etherscan.io/address/0x230e0321cf38f09e247e50afc7801ea2351fe56f). 
+Price adapter for Mainnet is deployed on the address [0x230e0321cf38f09e247e50afc7801ea2351fe56f](https://etherscan.io/address/0x230e0321cf38f09e247e50afc7801ea2351fe56f). 
 
 ### wstETH Adapter
 
