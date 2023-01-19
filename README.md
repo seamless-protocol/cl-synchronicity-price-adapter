@@ -24,9 +24,13 @@ General formula for this adapter is
 $$Price(Asset / BASE) = {DataFeed(Asset / PEG) * DataFeed(Peg / BASE)}$$
 and it can be re-used for any simple 2-step conversion.
 
+Price adapter for Mainnet is deployed on the address [https://etherscan.io/address/0x230e0321cf38f09e247e50afc7801ea2351fe56f](https://etherscan.io/address/0x230e0321cf38f09e247e50afc7801ea2351fe56f). 
+
 ### wstETH Adapter
 
 Special price adapter for `wstETH / USD` is added as additionaly to using `stETH / ETH` and `ETH / USD` price feeds it requires an extra step to get the ration between `stETH` and `wstETH` for the price calculation.
+
+Mainnet Price adapter for wstETH is deployed on the address [0xa9f30e6ed4098e9439b2ac8aea2d3fc26bcebb45](https://etherscan.io/address/0xa9f30e6ed4098e9439b2ac8aea2d3fc26bcebb45). 
 
 ## Implementation
 
