@@ -73,31 +73,31 @@ Special price adapter for `wstETH / USD` is added as additionaly to using `stETH
 List of affected Aave v2 Ethereum stablecoin assets and used Chainlink Data Feeds for `Asset / USD` pair.
 | Asset | Asset address | Chainlink Data Feed address |
 | --- | --- | --- |
-| USDT | 0xdAC17F958D2ee523a2206206994597C13D831ec7 | 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D |
-| BUSD | 0x4Fabb145d64652a948d72533023f6E7A623C7C53 | 0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A |
-| DAI | 0x6B175474E89094C44Da98b954EedeAC495271d0F | 0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9 |
-| SUSD | 0x57Ab1ec28D129707052df4dF418D58a2D46d5f51 | 0xad35Bd71b9aFE6e4bDc266B345c198eaDEf9Ad94 |
-| tUSD | 0x0000000000085d4780B73119b644AE5ecd22b376 | 0xec746eCF986E2927Abd291a2A1716c940100f8Ba |
-| USDC | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6 |
-| GUSD | 0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd | 0xa89f5d2365ce98B3cD68012b6f503ab1416245Fc |
-| USDP | 0x8E870D67F660D95d5be530380D0eC0bd388289E1 | 0x09023c0DA49Aaf8fc3fA3ADF34C6A7016D38D5e3 |
-| FRAX | 0x853d955aCEf822Db058eb8505911ED77F175b99e | 0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD |
-| LUSD | 0x5f98805A4E8be255a32880FDeC7F6728C6568bA0 | 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0 |
+| USDT | [0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) | [0x3E7d1eAB13ad0104d2750B8863b489D65364e32D](https://etherscan.io/address/0x3e7d1eab13ad0104d2750b8863b489d65364e32d) |
+| BUSD | [0x4Fabb145d64652a948d72533023f6E7A623C7C53](https://etherscan.io/address/0x4fabb145d64652a948d72533023f6e7a623c7c53) | [0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A](https://etherscan.io/address/0x833d8eb16d306ed1fbb5d7a2e019e106b960965a) |
+| DAI | [0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f) | [0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9](https://etherscan.io/address/0xaed0c38402a5d19df6e4c03f4e2dced6e29c1ee9) |
+| SUSD | [0x57Ab1ec28D129707052df4dF418D58a2D46d5f51](https://etherscan.io/address/0x57ab1ec28d129707052df4df418d58a2d46d5f51) | [0xad35Bd71b9aFE6e4bDc266B345c198eaDEf9Ad94](https://etherscan.io/address/0xad35bd71b9afe6e4bdc266b345c198eadef9ad94) |
+| tUSD | [0x0000000000085d4780B73119b644AE5ecd22b376](https://etherscan.io/address/0x0000000000085d4780b73119b644ae5ecd22b376) | [0xec746eCF986E2927Abd291a2A1716c940100f8Ba](https://etherscan.io/address/0xec746ecf986e2927abd291a2a1716c940100f8ba) |
+| USDC | [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) | [0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6](https://etherscan.io/address/0x8fffffd4afb6115b954bd326cbe7b4ba576818f6) |
+| GUSD | [0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd](https://etherscan.io/address/0x056fd409e1d7a124bd7017459dfea2f387b6d5cd) | [0xa89f5d2365ce98B3cD68012b6f503ab1416245Fc](https://etherscan.io/address/0xa89f5d2365ce98b3cd68012b6f503ab1416245fc) |
+| USDP | [0x8E870D67F660D95d5be530380D0eC0bd388289E1](https://etherscan.io/address/0x8e870d67f660d95d5be530380d0ec0bd388289e1) | [0x09023c0DA49Aaf8fc3fA3ADF34C6A7016D38D5e3](https://etherscan.io/address/0x09023c0da49aaf8fc3fa3adf34c6a7016d38d5e3) |
+| FRAX | [0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955acef822db058eb8505911ed77f175b99e) | [0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD](https://etherscan.io/address/0xb9e1e3a9feff48998e45fa90847ed4d467e8bcfd) |
+| LUSD | [0x5f98805A4E8be255a32880FDeC7F6728C6568bA0](https://etherscan.io/address/0x5f98805a4e8be255a32880fdec7f6728c6568ba0) | [0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0](https://etherscan.io/address/0x3d7ae7e594f2f2091ad8798313450130d0aba3a0) |
 
 ## Aave v2 ARC stablecoin assets and USD price feeds
 
 List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for `Asset / USD` pair.
 
-| Asset | Asset address                              | Chainlink Data Feed address                |
-| ----- | ------------------------------------------ | ------------------------------------------ |
-| USDC  | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6 |
+| Asset | Asset address                                                                                                         | Chainlink Data Feed address                                                                                           |
+| ----- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| USDC  | [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) | [0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6](https://etherscan.io/address/0x8fffffd4afb6115b954bd326cbe7b4ba576818f6) |
 
 ## Aave v3 assets
 
-| Asset  | Asset address                              | Chainlink Data Feed addresses                                                                              |
-| ------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| WBTC   | 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599 | WBTC/BTC: 0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23, BTC/USD: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c  |
-| wstETH | 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 | stETH/ETH: 0x86392dC19c0b719886221c78AB11eb8Cf5c52812, ETH/USD: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 |
+| Asset  | Asset address                                                                                                         | Chainlink Data Feed addresses                                                                                                                                                                                                                                    |
+| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WBTC   | [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599](https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599) | WBTC/BTC: [0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23](https://etherscan.io/address/0xfdfd9c85ad200c506cf9e21f1fd8dd01932fbb23), BTC/USD: [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xf4030086522a5beea4988f8ca5b36dbc97bee88c)  |
+| wstETH | [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0) | stETH/ETH: [0x86392dC19c0b719886221c78AB11eb8Cf5c52812](https://etherscan.io/address/0x86392dc19c0b719886221c78ab11eb8cf5c52812), ETH/USD: [0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419](https://etherscan.io/address/0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419) |
 
 ## Security
 
