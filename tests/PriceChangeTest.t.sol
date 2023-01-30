@@ -17,25 +17,25 @@ contract PriceChangeTest is Test, ProposalPayloadStablecoinsPriceAdapter {
   function testStablecoinPriceAdapter() public {
     (
       address[] memory assets,
-      address[] memory aggregators
+      address[] memory aggregators,
+      string[] memory names
     ) = _initAssetAggregators();
     address[] memory adapters = new address[](assets.length);
 
     for (uint8 i = 0; i < assets.length; i++) {
       CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-          ETH_USD_AGGREGATOR,
-          aggregators[i],
-          18
-        );
+        ETH_USD_AGGREGATOR,
+        aggregators[i],
+        18,
+        names[i]
+      );
 
       adapters[i] = address(adapter);
     }
 
     for (uint8 i = 0; i < assets.length; i++) {
       uint256 currentPrice = AaveV2Ethereum.ORACLE.getAssetPrice(assets[i]);
-      uint256 newPrice = uint256(
-        CLSynchronicityPriceAdapterBaseToPeg(adapters[i]).latestAnswer()
-      );
+      uint256 newPrice = uint256(CLSynchronicityPriceAdapterBaseToPeg(adapters[i]).latestAnswer());
 
       uint256 maximumDifference = (currentPrice * MAX_DIFF_PERCENTAGE) / 100;
       uint256 lowerLimit = currentPrice - maximumDifference;

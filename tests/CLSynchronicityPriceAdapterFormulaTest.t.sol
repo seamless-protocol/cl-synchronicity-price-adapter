@@ -27,20 +27,17 @@ contract StablecoinPriceAdapterFormulaTest is Test {
       _setMockPrice(mockAggregator, mockPrice, 8);
 
       CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-          address(ETH_USD_AGGREGATOR),
-          mockAggregator,
-          18
-        );
+        address(ETH_USD_AGGREGATOR),
+        mockAggregator,
+        18,
+        'MOCK'
+      );
 
       int256 price = adapter.latestAnswer();
       int256 expectedPriceInEth = int256(1 ether / i);
 
       int256 maxDiff = int256(10 ** (ethAggregatorDecimals));
-      assertApproxEqAbs(
-        uint256(price),
-        uint256(expectedPriceInEth),
-        uint256(maxDiff)
-      );
+      assertApproxEqAbs(uint256(price), uint256(expectedPriceInEth), uint256(maxDiff));
     }
   }
 
@@ -52,10 +49,11 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     _setMockPrice(mockAggregator2, 10000, 4);
 
     CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-        mockAggregator1,
-        mockAggregator2,
-        4
-      );
+      mockAggregator1,
+      mockAggregator2,
+      4,
+      'MOCK'
+    );
 
     int256 price = adapter.latestAnswer();
 
@@ -70,10 +68,11 @@ contract StablecoinPriceAdapterFormulaTest is Test {
     _setMockPrice(mockAggregator2, -1, 4);
 
     CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-        mockAggregator1,
-        mockAggregator2,
-        4
-      );
+      mockAggregator1,
+      mockAggregator2,
+      4,
+      'MOCK'
+    );
 
     int256 price = adapter.latestAnswer();
 
@@ -89,18 +88,10 @@ contract StablecoinPriceAdapterFormulaTest is Test {
 
     vm.expectRevert(ICLSynchronicityPriceAdapter.DecimalsNotEqual.selector);
 
-    new CLSynchronicityPriceAdapterBaseToPeg(
-      mockAggregator1,
-      mockAggregator2,
-      4
-    );
+    new CLSynchronicityPriceAdapterBaseToPeg(mockAggregator1, mockAggregator2, 4, 'MOCK');
   }
 
-  function _setMockPrice(
-    address mockAggregator,
-    int256 mockPrice,
-    uint256 decimals
-  ) internal {
+  function _setMockPrice(address mockAggregator, int256 mockPrice, uint256 decimals) internal {
     bytes memory latestAnswerCall = abi.encodeWithSignature('latestAnswer()');
     bytes memory decimalsCall = abi.encodeWithSignature('decimals()');
 

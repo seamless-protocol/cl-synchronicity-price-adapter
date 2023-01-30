@@ -5,18 +5,9 @@ import {Test} from 'forge-std/Test.sol';
 
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
+import {BaseAggregators} from '../src/lib/BaseAggregators.sol';
 
 contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
-  address public constant ETH_USD_AGGREGATOR =
-    0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
-  address public constant STETH_ETH_AGGREGATOR =
-    0x86392dC19c0b719886221c78AB11eb8Cf5c52812;
-
-  address public constant BTC_USD_AGGREGATOR =
-    0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c;
-  address public constant WBTC_BTC_AGGREGATOR =
-    0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23;
-
   uint256 public constant START_BLOCK = 15588955;
 
   function setUp() public {
@@ -25,10 +16,11 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
   function testLatestAnswer() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-        ETH_USD_AGGREGATOR,
-        STETH_ETH_AGGREGATOR,
-        18
-      );
+      BaseAggregators.ETH_USD_AGGREGATOR,
+      BaseAggregators.STETH_ETH_AGGREGATOR,
+      18,
+      'stETH/ETH/USD'
+    );
 
     int256 price = adapter.latestAnswer();
 
@@ -41,10 +33,11 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
   function testLatestAnswerWbtc() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-        BTC_USD_AGGREGATOR,
-        WBTC_BTC_AGGREGATOR,
-        8
-      );
+      BaseAggregators.BTC_USD_AGGREGATOR,
+      BaseAggregators.WBTC_BTC_AGGREGATOR,
+      8,
+      'wBTC/BTC/USD'
+    );
 
     int256 price = adapter.latestAnswer();
 
@@ -55,15 +48,37 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     );
   }
 
+  function testLatestAnswercbETH() public {
+    // the feed is not availble at START_BLOCK yet
+    uint256 START_BLOCK_CB_ETH = 16477236;
+    vm.rollFork(START_BLOCK_CB_ETH);
+
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+      BaseAggregators.ETH_USD_AGGREGATOR,
+      BaseAggregators.CBETH_ETH_AGGREGATOR,
+      8,
+      'cbETH/ETH/USD'
+    );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(
+      uint256(price),
+      162417252778, // value calculated manually for selected block (1003504805547725400 & 161850000000)
+      10 ** 8
+    );
+  }
+
   function testLatestAnswerWbtcRelativelyBtcFeed() public {
-    IChainlinkAggregator aggregator = IChainlinkAggregator(BTC_USD_AGGREGATOR);
+    IChainlinkAggregator aggregator = IChainlinkAggregator(BaseAggregators.BTC_USD_AGGREGATOR);
 
     for (uint256 i; i < 10; i++) {
       CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-          BTC_USD_AGGREGATOR,
-          WBTC_BTC_AGGREGATOR,
-          8
-        );
+        BaseAggregators.BTC_USD_AGGREGATOR,
+        BaseAggregators.WBTC_BTC_AGGREGATOR,
+        8,
+        'wBTC/BTC/USD'
+      );
 
       int256 price = adapter.latestAnswer();
       int256 btcPrice = aggregator.latestAnswer();
@@ -82,10 +97,11 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     _setMockPrice(mockAggregator2, 10000, 4);
 
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-        mockAggregator1,
-        mockAggregator2,
-        4
-      );
+      mockAggregator1,
+      mockAggregator2,
+      4,
+      'MOCK'
+    );
 
     int256 price = adapter.latestAnswer();
 
@@ -100,21 +116,18 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     _setMockPrice(mockAggregator2, 0, 4);
 
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-        mockAggregator1,
-        mockAggregator2,
-        4
-      );
+      mockAggregator1,
+      mockAggregator2,
+      4,
+      'MOCK'
+    );
 
     int256 price = adapter.latestAnswer();
 
     assertEq(price, 0);
   }
 
-  function _setMockPrice(
-    address mockAggregator,
-    int256 mockPrice,
-    uint256 decimals
-  ) internal {
+  function _setMockPrice(address mockAggregator, int256 mockPrice, uint256 decimals) internal {
     bytes memory latestAnswerCall = abi.encodeWithSignature('latestAnswer()');
     bytes memory decimalsCall = abi.encodeWithSignature('decimals()');
 

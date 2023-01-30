@@ -8,30 +8,21 @@ interface IGovernanceStrategy {
    * @param blockNumber Blocknumber at which to fetch Proposition Power
    * @return Power number
    **/
-  function getPropositionPowerAt(address user, uint256 blockNumber)
-    external
-    view
-    returns (uint256);
+  function getPropositionPowerAt(address user, uint256 blockNumber) external view returns (uint256);
 
   /**
    * @dev Returns the total supply of Outstanding Proposition Tokens
    * @param blockNumber Blocknumber at which to evaluate
    * @return total supply at blockNumber
    **/
-  function getTotalPropositionSupplyAt(uint256 blockNumber)
-    external
-    view
-    returns (uint256);
+  function getTotalPropositionSupplyAt(uint256 blockNumber) external view returns (uint256);
 
   /**
    * @dev Returns the total supply of Outstanding Voting Tokens
    * @param blockNumber Blocknumber at which to evaluate
    * @return total supply at blockNumber
    **/
-  function getTotalVotingSupplyAt(uint256 blockNumber)
-    external
-    view
-    returns (uint256);
+  function getTotalVotingSupplyAt(uint256 blockNumber) external view returns (uint256);
 
   /**
    * @dev Returns the Vote Power of a user at a specific block number.
@@ -39,10 +30,7 @@ interface IGovernanceStrategy {
    * @param blockNumber Blocknumber at which to fetch Vote Power
    * @return Vote number
    **/
-  function getVotingPowerAt(address user, uint256 blockNumber)
-    external
-    view
-    returns (uint256);
+  function getVotingPowerAt(address user, uint256 blockNumber) external view returns (uint256);
 }
 
 interface IExecutorWithTimelock {
@@ -336,11 +324,7 @@ interface IAaveGovernanceV2 {
    * @param executionTime time when proposal underlying transactions can be executed
    * @param initiatorQueueing address of the initiator of the queuing transaction
    **/
-  event ProposalQueued(
-    uint256 id,
-    uint256 executionTime,
-    address indexed initiatorQueueing
-  );
+  event ProposalQueued(uint256 id, uint256 executionTime, address indexed initiatorQueueing);
   /**
    * @dev emitted when a proposal is executed
    * @param id Id of the proposal
@@ -354,22 +338,11 @@ interface IAaveGovernanceV2 {
    * @param support boolean, true = vote for, false = vote against
    * @param votingPower Power of the voter/vote
    **/
-  event VoteEmitted(
-    uint256 id,
-    address indexed voter,
-    bool support,
-    uint256 votingPower
-  );
+  event VoteEmitted(uint256 id, address indexed voter, bool support, uint256 votingPower);
 
-  event GovernanceStrategyChanged(
-    address indexed newStrategy,
-    address indexed initiatorChange
-  );
+  event GovernanceStrategyChanged(address indexed newStrategy, address indexed initiatorChange);
 
-  event VotingDelayChanged(
-    uint256 newVotingDelay,
-    address indexed initiatorChange
-  );
+  event VotingDelayChanged(uint256 newVotingDelay, address indexed initiatorChange);
 
   event ExecutorAuthorized(address executor);
 
@@ -506,10 +479,7 @@ interface IAaveGovernanceV2 {
    * @param proposalId id of the proposal to get
    * @return the proposal as ProposalWithoutVotes memory object
    **/
-  function getProposalById(uint256 proposalId)
-    external
-    view
-    returns (ProposalWithoutVotes memory);
+  function getProposalById(uint256 proposalId) external view returns (ProposalWithoutVotes memory);
 
   /**
    * @dev Getter of the Vote of a voter about a proposal
@@ -518,32 +488,23 @@ interface IAaveGovernanceV2 {
    * @param voter address of the voter
    * @return The associated Vote memory object
    **/
-  function getVoteOnProposal(uint256 proposalId, address voter)
-    external
-    view
-    returns (Vote memory);
+  function getVoteOnProposal(uint256 proposalId, address voter) external view returns (Vote memory);
 
   /**
    * @dev Get the current state of a proposal
    * @param proposalId id of the proposal
    * @return The current state if the proposal
    **/
-  function getProposalState(uint256 proposalId)
-    external
-    view
-    returns (ProposalState);
+  function getProposalState(uint256 proposalId) external view returns (ProposalState);
 }
 
 library AaveGovernanceV2 {
   IAaveGovernanceV2 internal constant GOV =
     IAaveGovernanceV2(0xEC568fffba86c094cf06b22134B23074DFE2252c);
 
-  address public constant SHORT_EXECUTOR =
-    0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
+  address public constant SHORT_EXECUTOR = 0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
 
-  address public constant LONG_EXECUTOR =
-    0x61910EcD7e8e942136CE7Fe7943f956cea1CC2f7;
+  address public constant LONG_EXECUTOR = 0x61910EcD7e8e942136CE7Fe7943f956cea1CC2f7;
 
-  address public constant ARC_TIMELOCK =
-    0xAce1d11d836cb3F51Ef658FD4D353fFb3c301218;
+  address public constant ARC_TIMELOCK = 0xAce1d11d836cb3F51Ef658FD4D353fFb3c301218;
 }

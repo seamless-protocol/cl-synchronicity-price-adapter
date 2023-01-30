@@ -11,14 +11,9 @@ import {AaveV2Ethereum} from './aave-address-book/AaveAddressBook.sol';
  * @notice Aave governance payload to add price adapter for stable coins
  */
 contract ProposalPayloadStablecoinsPriceAdapter {
-  address public constant ETH_USD_AGGREGATOR =
-    0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+  address public constant ETH_USD_AGGREGATOR = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
 
-  function _initAssetAggregators()
-    internal
-    pure
-    returns (address[] memory, address[] memory)
-  {
+  function _initAssetAggregators() internal pure returns (address[] memory, address[] memory) {
     address[] memory assets = new address[](10);
     address[] memory aggregators = new address[](10);
 
@@ -66,19 +61,16 @@ contract ProposalPayloadStablecoinsPriceAdapter {
   }
 
   function execute() external {
-    (
-      address[] memory assets,
-      address[] memory aggregators
-    ) = _initAssetAggregators();
+    (address[] memory assets, address[] memory aggregators) = _initAssetAggregators();
     address[] memory adapters = new address[](assets.length);
 
     // for each stable coin make price adapter
     for (uint8 i = 0; i < assets.length; i++) {
       CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-          ETH_USD_AGGREGATOR,
-          aggregators[i],
-          18
-        );
+        ETH_USD_AGGREGATOR,
+        aggregators[i],
+        18
+      );
 
       adapters[i] = address(adapter);
     }

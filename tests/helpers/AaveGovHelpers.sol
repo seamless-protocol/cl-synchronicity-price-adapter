@@ -63,29 +63,21 @@ interface IAaveGov {
 
   function submitVote(uint256 proposalId, bool support) external;
 
-  function getProposalById(
-    uint256 proposalId
-  ) external view returns (ProposalWithoutVotes memory);
+  function getProposalById(uint256 proposalId) external view returns (ProposalWithoutVotes memory);
 
-  function getProposalState(
-    uint256 proposalId
-  ) external view returns (ProposalState);
+  function getProposalState(uint256 proposalId) external view returns (ProposalState);
 }
 
 library GovHelpers {
-  IAaveGov internal constant GOV =
-    IAaveGov(0xEC568fffba86c094cf06b22134B23074DFE2252c);
+  IAaveGov internal constant GOV = IAaveGov(0xEC568fffba86c094cf06b22134B23074DFE2252c);
 
-  address public constant SHORT_EXECUTOR =
-    0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
+  address public constant SHORT_EXECUTOR = 0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
 
-  address public constant LONG_EXECUTOR =
-    0x61910EcD7e8e942136CE7Fe7943f956cea1CC2f7;
+  address public constant LONG_EXECUTOR = 0x61910EcD7e8e942136CE7Fe7943f956cea1CC2f7;
 
   address public constant AAVE = 0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9;
 
-  address internal constant AAVE_WHALE =
-    address(0x25F2226B597E8F9514B3F68F00f494cF4f286491);
+  address internal constant AAVE_WHALE = address(0x25F2226B597E8F9514B3F68F00f494cF4f286491);
 
   /**
    * Impersonate the ecosystem reserve and created the proposal.
@@ -141,14 +133,9 @@ library GovHelpers {
     params.ipfsHash = ipfsHash;
   }
 
-  function _getProposalSlot(
-    uint256 proposalId
-  ) private pure returns (bytes32 slot) {
+  function _getProposalSlot(uint256 proposalId) private pure returns (bytes32 slot) {
     uint256 proposalsMapSlot = 0x4;
-    return
-      bytes32(
-        uint256(keccak256(abi.encode(proposalId, proposalsMapSlot))) + 11
-      );
+    return bytes32(uint256(keccak256(abi.encode(proposalId, proposalsMapSlot))) + 11);
   }
 
   /**

@@ -12,9 +12,7 @@ import {CLSynchronicityPriceAdapterPegToBase} from './CLSynchronicityPriceAdapte
  * @notice Price adapter to calculate price of (wstETH / USD) pair by using
  * @notice Chainlink Data Feeds for (stETH / ETH) and (ETH / USd) pairs and (wstETH / stETH) ratio.
  */
-contract CLwstETHSynchronicityPriceAdapter is
-  CLSynchronicityPriceAdapterPegToBase
-{
+contract CLwstETHSynchronicityPriceAdapter is CLSynchronicityPriceAdapterPegToBase {
   /**
    * @notice stETH token contract
    */
@@ -29,12 +27,14 @@ contract CLwstETHSynchronicityPriceAdapter is
     address pegToBaseAggregatorAddress,
     address assetToPegAggregatorAddress,
     uint8 decimals,
-    address stETHAddress
+    address stETHAddress,
+    string memory pairName
   )
     CLSynchronicityPriceAdapterPegToBase(
       pegToBaseAggregatorAddress,
       assetToPegAggregatorAddress,
-      decimals
+      decimals,
+      pairName
     )
   {
     STETH = IStETH(stETHAddress);

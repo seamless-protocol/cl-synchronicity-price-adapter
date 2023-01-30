@@ -12,9 +12,7 @@ import {CLSynchronicityPriceAdapterPegToBase} from './CLSynchronicityPriceAdapte
  * @notice Price adapter to calculate price of (wstETH / USD) pair by using
  * @notice Chainlink Data Feeds for (wstETH / ETH) and (ETH / USd) pairs and (wstETH / stETH) ratio.
  */
-contract CLwstETHSynchronicityPriceAdapter is
-  CLSynchronicityPriceAdapterPegToBase
-{
+contract CLwstETHSynchronicityPriceAdapter is CLSynchronicityPriceAdapterPegToBase {
   /**
    * @notice stETH token contract
    */

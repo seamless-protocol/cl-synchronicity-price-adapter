@@ -19,6 +19,7 @@ The purpose of these contracts is to reduce the impact of lag time when multiple
 The updated price adapters will share either a Base to Peg or Peg to Base price feed and have a unique Asset to Peg feed.
 
 The Base to Peg price adapter uses two feeds to establish the price for an asset.
+
 - Asset to Peg price (e.g. USDC to USD)
 - Base to Peg price (e.g. ETH to USD)
 
@@ -29,6 +30,7 @@ The final calculation is:
 ```
 
 The wstETH price adapter also uses two Chainlink feeds however the Base / Peg price is inverted.
+
 - Asset to Peg price (e.g. stETH to ETH)
 - Peg to Base price (e.g. ETH to USD)
 
@@ -40,15 +42,15 @@ The final calculation is:
 (wstETH to Base) = (stETH to ETH) * (ETH to USD) * (wstETH to stETH)
 ```
 
-
 ### Scope
 
 The review was conducted on commit [cf40a4f](https://github.com/bgd-labs/cl-synchronicity-price-adapter/commit/cf40a4f129fff75971e4337c4c25f50c7aed1efb).
 
 The scope of the audit covers the following components:
-* `CLwstETHSynchronicityPriceAdapter.sol`
-* `CLSynchronicityPriceAdapterPegToBase.sol`
-* `CLSynchronicityPriceAdapterBaseToPeg.sol`
+
+- `CLwstETHSynchronicityPriceAdapter.sol`
+- `CLSynchronicityPriceAdapterPegToBase.sol`
+- `CLSynchronicityPriceAdapterBaseToPeg.sol`
 
 ### Summary of Findings
 
@@ -66,7 +68,7 @@ The following comment is found in `CLwstETHSynchronicityPriceAdapter.sol` on lin
 
 The comment is invalid as the correct feeds should be `(stETH / ETH) and (ETH / USD) pairs and (wstETH / stETH) ratio`.
 Such that the outcome of multiplying each of these would be `wstETH / USD`.
- 
+
 **Recommendations**
 
 Update the comments to reflect the correct Chainlink pairs.

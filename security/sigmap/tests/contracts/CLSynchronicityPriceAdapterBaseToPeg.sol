@@ -49,8 +49,7 @@ contract CLSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAdapter {
     if (decimals > MAX_DECIMALS) revert DecimalsAboveLimit();
     if (BASE_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
 
-    if (BASE_TO_PEG.decimals() != ASSET_TO_PEG.decimals())
-      revert DecimalsNotEqual();
+    if (BASE_TO_PEG.decimals() != ASSET_TO_PEG.decimals()) revert DecimalsNotEqual();
 
     DECIMALS = decimals;
   }

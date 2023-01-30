@@ -19,7 +19,8 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
   function testProposal() public {
     (
       address[] memory assets,
-      address[] memory aggregators
+      address[] memory aggregators,
+      string[] memory names
     ) = _initAssetAggregators();
 
     ArcProposalPayloadStablecoinsPriceAdapter payload = new ArcProposalPayloadStablecoinsPriceAdapter();
@@ -38,12 +39,13 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
     vm.warp(block.timestamp + delay + 1);
     TimelockHelpers.executeActionSet(actionSetId);
 
-    _validate(assets, aggregators);
+    _validate(assets, aggregators, names);
   }
 
   function _validate(
     address[] memory assets,
-    address[] memory aggregators
+    address[] memory aggregators,
+    string[] memory names
   ) internal {
     //Check if source for every asset is changed
     for (uint8 i = 0; i < assets.length; i++) {
@@ -52,6 +54,7 @@ contract ArcProposalPayloadStablecoinsPriceAdapterTest is
         CLSynchronicityPriceAdapterBaseToPeg(newSource).ASSET_TO_PEG()
       );
       assertTrue(assetUsdAggregator == aggregators[i]);
+      assertEq(names[i], CLSynchronicityPriceAdapterBaseToPeg(newSource).name());
     }
   }
 }

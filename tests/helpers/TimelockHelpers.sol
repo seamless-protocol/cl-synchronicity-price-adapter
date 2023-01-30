@@ -29,8 +29,7 @@ interface ITimelockExecutor {
 }
 
 library TimelockHelpers {
-  address public constant SHORT_EXECUTOR =
-    0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
+  address public constant SHORT_EXECUTOR = 0xEE56e2B3D491590B5b31738cC34d5232F378a8D5;
 
   ITimelockExecutor internal constant TIMELOCK_EXECUTOR =
     ITimelockExecutor(0xAce1d11d836cb3F51Ef658FD4D353fFb3c301218);
