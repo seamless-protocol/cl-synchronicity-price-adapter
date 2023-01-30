@@ -30,7 +30,7 @@ Price adapter for Mainnet is deployed on the address [0x230e0321cf38f09e247e50af
 
 To provide the `cbETH / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `cbETH / ETH` and `ETH / USD` oracles is deployed.
 
-Price adapter for Mainnet is deployed on the address [tba](https://etherscan.io/address/tba).
+Price adapter for Mainnet is deployed on the address [0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731](https://etherscan.io/address/0x5f4d15d761528c57a5c30c43c1dab26fc5452731).
 
 ### wstETH Adapter
 
