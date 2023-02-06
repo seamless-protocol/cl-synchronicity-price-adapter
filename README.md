@@ -42,7 +42,7 @@ Mainnet Price adapter for wstETH is deployed on the address [0xa9f30e6ed4098e943
 
 Price adapter for `rETH / USD` uses `ETH / USD` price feed along with the `getExchangeRate()` method, which returns `rETH / ETH` ratio, of the [rETH](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393) contract itself.
 
-Mainnet Price adapter for rETH is deployed on the address [0x0]().
+Mainnet Price adapter for rETH is deployed on the address [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225cd708bca9253789c1374e4337a019e99d56).
 
 ## Implementation
 
