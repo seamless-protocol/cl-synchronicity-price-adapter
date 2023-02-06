@@ -38,6 +38,12 @@ Special price adapter for `wstETH / USD` is added as additionally to using `stET
 
 Mainnet Price adapter for wstETH is deployed on the address [0xa9f30e6ed4098e9439b2ac8aea2d3fc26bcebb45](https://etherscan.io/address/0xa9f30e6ed4098e9439b2ac8aea2d3fc26bcebb45).
 
+### rETH Adapter
+
+Price adapter for `rETH / USD` uses `ETH / USD` price feed along with the `getExchangeRate()` method, which returns `rETH / ETH` ratio, of the [rETH](https://etherscan.io/token/0xae78736cd615f374d3085123a210448e74fc6393) contract itself.
+
+Mainnet Price adapter for rETH is deployed on the address [0x0]().
+
 ## Implementation
 
 ### Price Adapter
@@ -58,6 +64,11 @@ Mainnet Price adapter for wstETH is deployed on the address [0xa9f30e6ed4098e943
 [CLwstETHSynchronicityPriceAdapter](/src/contracts/CLwstETHSynchronicityPriceAdapter.sol)
 
 - Price adapter smart contract which calculates `wstETH / USD` price based on `stETH / ETH` and `ETH / USD` feeds.
+- Returning price is calculated with 8 decimals.
+
+[CLrETHSynchronicityPriceAdapter](/src/contracts/CLrETHSynchronicityPriceAdapter.sol)
+
+- Price adapter smart contract which calculates `rETH / USD` price based on `rETH / ETH` and `ETH / USD` feeds.
 - Returning price is calculated with 8 decimals.
 
 ### Governance Payloads
