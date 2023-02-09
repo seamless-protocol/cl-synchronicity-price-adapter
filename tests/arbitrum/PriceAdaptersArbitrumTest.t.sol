@@ -8,7 +8,7 @@ import {BaseAggregatorsArbitrum} from '../../src/lib/BaseAggregators.sol';
 
 contract PriceAdaptersArbitrumTest is Test {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 59385420);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 59403235);
   }
 
   function testwstETHLatestAnswer() public {
@@ -23,7 +23,7 @@ contract PriceAdaptersArbitrumTest is Test {
 
     assertApproxEqAbs(
       uint256(price),
-      180465080000, // value calculated manually for selected block
+      180516290000, // value calculated manually for selected block
       10000
     );
   }
