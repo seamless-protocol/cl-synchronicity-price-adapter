@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {Test} from 'forge-std/Test.sol';
 
 import {CLrETHSynchronicityPriceAdapter} from '../src/contracts/CLrETHSynchronicityPriceAdapter.sol';
-import {BaseAggregators} from '../src/lib/BaseAggregators.sol';
+import {BaseAggregatorsMainnet} from '../src/lib/BaseAggregators.sol';
 
 contract CLrETHSynchronicityPriceAdapterTest is Test {
   address public constant RETH = 0xae78736Cd615f374D3085123A210448E74Fc6393;
@@ -15,7 +15,7 @@ contract CLrETHSynchronicityPriceAdapterTest is Test {
 
   function testLatestAnswer() public {
     CLrETHSynchronicityPriceAdapter adapter = new CLrETHSynchronicityPriceAdapter(
-      BaseAggregators.ETH_USD_AGGREGATOR,
+      BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       RETH,
       'rETH/ETH/USD'
     );

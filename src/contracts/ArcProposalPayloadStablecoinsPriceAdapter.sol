@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {CLSynchronicityPriceAdapterBaseToPeg} from './CLSynchronicityPriceAdapterBaseToPeg.sol';
 import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {AaveV2EthereumArc} from 'aave-address-book/AaveAddressBook.sol';
-import {BaseAggregators} from '../lib/BaseAggregators.sol';
+import {BaseAggregatorsMainnet} from '../lib/BaseAggregators.sol';
 
 /**
  * @title ArcProposalPayloadStablecoinsPriceAdapter
@@ -25,7 +25,7 @@ contract ArcProposalPayloadStablecoinsPriceAdapter {
 
     // USDC
     assets[0] = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-    aggregators[0] = BaseAggregators.USDC_USD_AGGREGATOR;
+    aggregators[0] = BaseAggregatorsMainnet.USDC_USD_AGGREGATOR;
     names[0] = 'USDC/USD/ETH';
 
     return (assets, aggregators, names);
@@ -42,7 +42,7 @@ contract ArcProposalPayloadStablecoinsPriceAdapter {
     // for each stable coin make price adapter
     for (uint8 i = 0; i < assets.length; i++) {
       CLSynchronicityPriceAdapterBaseToPeg adapter = new CLSynchronicityPriceAdapterBaseToPeg(
-        BaseAggregators.ETH_USD_AGGREGATOR,
+        BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
         aggregators[i],
         18,
         names[i]

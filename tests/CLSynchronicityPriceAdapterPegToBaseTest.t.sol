@@ -5,7 +5,7 @@ import {Test} from 'forge-std/Test.sol';
 
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
-import {BaseAggregators} from '../src/lib/BaseAggregators.sol';
+import {BaseAggregatorsMainnet} from '../src/lib/BaseAggregators.sol';
 
 contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   uint256 public constant START_BLOCK = 15588955;
@@ -16,9 +16,9 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
   function testLatestAnswer() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-      BaseAggregators.ETH_USD_AGGREGATOR,
-      BaseAggregators.STETH_ETH_AGGREGATOR,
-      18,
+      BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
+      BaseAggregatorsMainnet.STETH_ETH_AGGREGATOR,
+      8,
       'stETH/ETH/USD'
     );
 
@@ -26,15 +26,15 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
     assertApproxEqAbs(
       uint256(price),
-      1295000000000000000000, // value calculated manually for selected block
-      1000000000000000000
+      129500000000, // value calculated manually for selected block
+      100000000
     );
   }
 
   function testLatestAnswerWbtc() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-      BaseAggregators.BTC_USD_AGGREGATOR,
-      BaseAggregators.WBTC_BTC_AGGREGATOR,
+      BaseAggregatorsMainnet.BTC_USD_AGGREGATOR,
+      BaseAggregatorsMainnet.WBTC_BTC_AGGREGATOR,
       8,
       'wBTC/BTC/USD'
     );
@@ -54,8 +54,8 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     vm.rollFork(START_BLOCK_CB_ETH);
 
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-      BaseAggregators.ETH_USD_AGGREGATOR,
-      BaseAggregators.CBETH_ETH_AGGREGATOR,
+      BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
+      BaseAggregatorsMainnet.CBETH_ETH_AGGREGATOR,
       8,
       'cbETH/ETH/USD'
     );
@@ -70,12 +70,14 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   }
 
   function testLatestAnswerWbtcRelativelyBtcFeed() public {
-    IChainlinkAggregator aggregator = IChainlinkAggregator(BaseAggregators.BTC_USD_AGGREGATOR);
+    IChainlinkAggregator aggregator = IChainlinkAggregator(
+      BaseAggregatorsMainnet.BTC_USD_AGGREGATOR
+    );
 
     for (uint256 i; i < 10; i++) {
       CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-        BaseAggregators.BTC_USD_AGGREGATOR,
-        BaseAggregators.WBTC_BTC_AGGREGATOR,
+        BaseAggregatorsMainnet.BTC_USD_AGGREGATOR,
+        BaseAggregatorsMainnet.WBTC_BTC_AGGREGATOR,
         8,
         'wBTC/BTC/USD'
       );

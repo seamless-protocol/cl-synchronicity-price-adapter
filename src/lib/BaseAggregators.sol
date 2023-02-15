@@ -1,19 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-library BaseAggregators {
-  address public constant USDC_USD_AGGREGATOR = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
-
-  address public constant ETH_USD_AGGREGATOR =
-    0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
-  address public constant STETH_ETH_AGGREGATOR =
-    0x86392dC19c0b719886221c78AB11eb8Cf5c52812;
-
-  address public constant BTC_USD_AGGREGATOR =
-    0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c;
-  address public constant WBTC_BTC_AGGREGATOR =
-    0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23;
-
-  address public constant CBETH_ETH_AGGREGATOR =
-    0xF017fcB346A1885194689bA23Eff2fE6fA5C483b;
-}
+import {BaseAggregatorsMainnet} from './BaseAggregatorsMainnet.sol';
+import {BaseAggregatorsArbitrum} from './BaseAggregatorsArbitrum.sol';
+import {BaseAggregatorsOptimism} from './BaseAggregatorsOptimism.sol';
