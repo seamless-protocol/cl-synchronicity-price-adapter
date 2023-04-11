@@ -69,6 +69,27 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
     );
   }
 
+  function testLatestAnswerLDO() public {
+    // the feed is not availble at START_BLOCK yet
+    uint256 START_BLOCK_LDO_ETH = 16991307;
+    vm.rollFork(START_BLOCK_LDO_ETH);
+
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+      BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
+      BaseAggregatorsMainnet.LDO_ETH_AGGREGATOR,
+      8,
+      'LDO/ETH/USD'
+    );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(
+      uint256(price),
+      252715331, // value calculated manually for selected block (1003504805547725400 & 161850000000)
+      10 ** 8
+    );
+  }
+
   function testLatestAnswerWbtcRelativelyBtcFeed() public {
     IChainlinkAggregator aggregator = IChainlinkAggregator(
       BaseAggregatorsMainnet.BTC_USD_AGGREGATOR
