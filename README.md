@@ -50,6 +50,13 @@ To provide the `LDO / USD` price feed `CLSynchronicityPriceAdapterPegToBase` con
 
 Price adapter for Mainnet is deployed on the address [0xb01e6c9af83879b8e06a092f0dd94309c0d497e4](https://etherscan.io/address/0xb01e6c9af83879b8e06a092f0dd94309c0d497e4).
 
+### wstETH Adapter Polygon
+
+To provide the `wstETH / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `wstETH / ETH` and `ETH / USD` oracles is deployed.
+
+Price adapter for Polygon is deployed on the address [0xa2508729b1282cc70dd33ed311d4a9a37383035b](https://polygonscan.com/address/0xa2508729b1282cc70dd33ed311d4a9a37383035b).
+
+
 ## Implementation
 
 ### Price Adapter
@@ -127,6 +134,11 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 | wstETH | [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0) | stETH/ETH: [0x86392dC19c0b719886221c78AB11eb8Cf5c52812](https://etherscan.io/address/0x86392dc19c0b719886221c78ab11eb8cf5c52812), ETH/USD: [0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419](https://etherscan.io/address/0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419) |
 | LDO    | [0xb01e6c9af83879b8e06a092f0dd94309c0d497e4](https://etherscan.io/address/0xb01e6c9af83879b8e06a092f0dd94309c0d497e4) | LDO/ETH:
 [0x4e844125952D32AcdF339BE976c98E22F6F318dB](https://etherscan.io/address/0x4e844125952D32AcdF339BE976c98E22F6F318dB) | ETH/USD: [0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419](https://etherscan.io/address/0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419)
+
+Polygon
+
+| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| wstETH   | [0xa2508729b1282cc70dd33ed311d4a9a37383035b](https://polygonscan.com/address/0xa2508729b1282cc70dd33ed311d4a9a37383035b) | wstETH/ETH: [0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a](https://polygonscan.com/address/0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a), ETH/USD: [0xF9680D99D6C9589e2a93a78A04A279e509205945](https://polygonscan.com/address/0xF9680D99D6C9589e2a93a78A04A279e509205945)  |
 
 ## Security
 
