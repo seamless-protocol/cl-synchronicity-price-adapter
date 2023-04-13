@@ -50,6 +50,7 @@ To provide the `LDO / USD` price feed `CLSynchronicityPriceAdapterPegToBase` con
 
 Price adapter for Mainnet is deployed on the address [0xb01e6c9af83879b8e06a092f0dd94309c0d497e4](https://etherscan.io/address/0xb01e6c9af83879b8e06a092f0dd94309c0d497e4).
 
+<<<<<<< HEAD
 ### wstETH Adapter Polygon
 
 To provide the `wstETH / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `wstETH / ETH` and `ETH / USD` oracles is deployed.
@@ -57,6 +58,8 @@ To provide the `wstETH / USD` price feed `CLSynchronicityPriceAdapterPegToBase` 
 Price adapter for Polygon is deployed on the address [0xa2508729b1282cc70dd33ed311d4a9a37383035b](https://polygonscan.com/address/0xa2508729b1282cc70dd33ed311d4a9a37383035b).
 
 
+=======
+>>>>>>> origin/main
 ## Implementation
 
 ### Price Adapter
