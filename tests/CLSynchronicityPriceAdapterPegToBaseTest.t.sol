@@ -6,6 +6,7 @@ import {Test} from 'forge-std/Test.sol';
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
 import {BaseAggregatorsMainnet} from '../src/lib/BaseAggregators.sol';
+import {BaseAggregatorsPolygon} from '../src/lib/BaseAggregatorsPolygon.sol';
 
 contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   uint256 public constant START_BLOCK = 15588955;
@@ -156,5 +157,25 @@ contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
 
     vm.mockCall(mockAggregator, latestAnswerCall, abi.encode(mockPrice));
     vm.mockCall(mockAggregator, decimalsCall, abi.encode(decimals));
+  }
+}
+
+contract CLSynchronicityPriceAdapterPegToBaseTestPolygon is Test {
+  uint256 public constant START_BLOCK = 41497996;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('polygon'), START_BLOCK);
+  }
+
+  function testLatestAnswerWstETHUSD() public {
+    address DEPLOYED_CONTRACT = 0xA2508729b1282Cc70dd33Ed311d4A9A37383035b;
+
+    CLSynchronicityPriceAdapterPegToBase adapter = CLSynchronicityPriceAdapterPegToBase(
+      DEPLOYED_CONTRACT
+    );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(uint256(price), 224312645700, 10 ** 8);
   }
 }
