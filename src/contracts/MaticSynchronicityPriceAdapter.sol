@@ -34,7 +34,7 @@ contract MaticSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
    */
   uint8 public immutable DECIMALS;
 
-  string private _name;
+  string private _description;
 
   /**
    * @param maticToBaseAggregatorAddress the address of MATIC / BASE feed
@@ -51,12 +51,17 @@ contract MaticSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
     DECIMALS = MATIC_TO_BASE.decimals();
 
-    _name = pairName;
+    _description = pairName;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
-  function name() external view returns (string memory) {
-    return _name;
+  function description() external view returns (string memory) {
+    return _description;
+  }
+
+  /// @inheritdoc ICLSynchronicityPriceAdapter
+  function decimals() external view returns (uint8) {
+    return DECIMALS;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
