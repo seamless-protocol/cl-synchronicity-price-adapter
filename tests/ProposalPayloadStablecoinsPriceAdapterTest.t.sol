@@ -55,7 +55,7 @@ contract ProposalPayloadStablecoinsPriceAdapterTest is
         CLSynchronicityPriceAdapterBaseToPeg(newSource).ASSET_TO_PEG()
       );
       assertTrue(assetUsdAggregator == aggregators[i]);
-      assertEq(names[i], CLSynchronicityPriceAdapterBaseToPeg(newSource).name());
+      assertEq(names[i], CLSynchronicityPriceAdapterBaseToPeg(newSource).description());
     }
   }
 }

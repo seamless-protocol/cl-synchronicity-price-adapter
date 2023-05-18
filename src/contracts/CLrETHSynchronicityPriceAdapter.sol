@@ -27,23 +27,32 @@ contract CLrETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
    */
   uint8 public constant RATIO_DECIMALS = 18;
 
-  string private _name;
+  string private _description;
 
   /**
    * @param ethToUSDAggregatorAddress the address of ETH / USD feed
    * @param rETHAddress the address of rETH token
-   * @param pairName name identifier
+   * @param pairDescription description
    */
-  constructor(address ethToUSDAggregatorAddress, address rETHAddress, string memory pairName) {
+  constructor(
+    address ethToUSDAggregatorAddress,
+    address rETHAddress,
+    string memory pairDescription
+  ) {
     ETH_TO_USD = IChainlinkAggregator(ethToUSDAggregatorAddress);
     RETH = IrETH(rETHAddress);
 
-    _name = pairName;
+    _description = pairDescription;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
-  function name() external view returns (string memory) {
-    return _name;
+  function description() external view returns (string memory) {
+    return _description;
+  }
+
+  /// @inheritdoc ICLSynchronicityPriceAdapter
+  function decimals() external pure returns (uint8) {
+    return 8;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
