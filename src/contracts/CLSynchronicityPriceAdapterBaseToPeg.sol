@@ -33,18 +33,19 @@ contract CLSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAdapter {
    */
   uint8 public constant MAX_DECIMALS = 18;
 
-  string private _name;
+  string private _description;
 
   /**
    * @param baseToPegAggregatorAddress the address of BASE / PEG feed
    * @param assetToPegAggregatorAddress the address of the ASSET / PEG feed
    * @param decimals precision of the answer
+   * @param pairDescription description
    */
   constructor(
     address baseToPegAggregatorAddress,
     address assetToPegAggregatorAddress,
     uint8 decimals,
-    string memory pairName
+    string memory pairDescription
   ) {
     BASE_TO_PEG = IChainlinkAggregator(baseToPegAggregatorAddress);
     ASSET_TO_PEG = IChainlinkAggregator(assetToPegAggregatorAddress);
@@ -55,12 +56,17 @@ contract CLSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAdapter {
     if (BASE_TO_PEG.decimals() != ASSET_TO_PEG.decimals()) revert DecimalsNotEqual();
 
     DECIMALS = decimals;
-    _name = pairName;
+    _description = pairDescription;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
-  function name() external view returns (string memory) {
-    return _name;
+  function description() external view returns (string memory) {
+    return _description;
+  }
+
+  /// @inheritdoc ICLSynchronicityPriceAdapter
+  function decimals() external view returns (uint8) {
+    return DECIMALS;
   }
 
   /// @inheritdoc ICLSynchronicityPriceAdapter

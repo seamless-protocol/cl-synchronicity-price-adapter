@@ -9,10 +9,16 @@ interface ICLSynchronicityPriceAdapter {
   function latestAnswer() external view returns (int256);
 
   /**
-   * @notice Returns the name identifier of the feed
-   * @return string name
+   * @notice Returns the description of the feed
+   * @return string desciption
    */
-  function name() external view returns (string memory);
+  function description() external view returns (string memory);
+
+  /**
+   * @notice Returns the feed decimals
+   * @return uint8 decimals
+   */
+  function decimals() external view returns (uint8);
 
   error DecimalsAboveLimit();
   error DecimalsNotEqual();
