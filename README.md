@@ -44,7 +44,7 @@ Price adapter for `rETH / USD` uses `ETH / USD` price feed along with the `getEx
 
 Mainnet Price adapter for rETH is deployed on the address [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225cd708bca9253789c1374e4337a019e99d56).
 
-Arbitrum Price adapter for rETH is deployed on the address [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://arbiscan.io/address/0x).
+Arbitrum Price adapter for rETH is deployed on the address [0x853844459106feefd8C7C4cC34066bFBC0531722](https://arbiscan.io/address/0x853844459106feefd8C7C4cC34066bFBC0531722).
 
 ### LDO Adapter
 
