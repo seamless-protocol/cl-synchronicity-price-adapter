@@ -145,7 +145,7 @@ Polygon
 Arbitrum
 
 | ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| rETH   | [newdeploy](https://arbiscan.com/address/newdeploy) | rETH: [0xEC70Dcb4A1EFa46b8F2D97C310C9c4790ba5ffA8](https://arbiscan.com/address/0xEC70Dcb4A1EFa46b8F2D97C310C9c4790ba5ffA8), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.com/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612)  |
+| rETH   | [0x853844459106feefd8C7C4cC34066bFBC0531722](https://arbiscan.com/address/0x853844459106feefd8C7C4cC34066bFBC0531722) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.com/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.com/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612)  |
 
 ## Security
 
