@@ -25,7 +25,7 @@ contract MaticSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   IMaticRateProvider public immutable RATE_PROVIDER;
 
   /**
-   * @notice Number of decimals for wstETH / ETH ratio
+   * @notice Number of decimals for asset / MATIC ratio
    */
   uint8 public constant RATIO_DECIMALS = 18;
 
@@ -66,13 +66,13 @@ contract MaticSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
   function latestAnswer() public view virtual override returns (int256) {
-    int256 maticToPegPrice = MATIC_TO_BASE.latestAnswer();
+    int256 maticToBasePrice = MATIC_TO_BASE.latestAnswer();
     int256 ratio = int256(RATE_PROVIDER.getRate());
 
-    if (maticToPegPrice <= 0 || ratio <= 0) {
+    if (maticToBasePrice <= 0 || ratio <= 0) {
       return 0;
     }
 
-    return (maticToPegPrice * ratio) / int256(10 ** RATIO_DECIMALS);
+    return (maticToBasePrice * ratio) / int256(10 ** RATIO_DECIMALS);
   }
 }
