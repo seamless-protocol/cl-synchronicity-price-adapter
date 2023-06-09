@@ -16,6 +16,8 @@ library BaseAggregatorsMainnet {
 
   address public constant CBETH_ETH_AGGREGATOR =
     0xF017fcB346A1885194689bA23Eff2fE6fA5C483b;
+  address public constant CBETH =
+    0xBe9895146f7AF43049ca1c1AE358B0541Ea49704;
 
   address public constant LDO_ETH_AGGREGATOR =
     0x4e844125952D32AcdF339BE976c98E22F6F318dB;
