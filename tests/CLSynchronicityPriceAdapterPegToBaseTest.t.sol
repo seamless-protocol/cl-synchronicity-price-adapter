@@ -184,7 +184,7 @@ contract CLrETHSynchronicityPriceAdapterTestArbitrum is Test {
   address public constant RETH = 0xEC70Dcb4A1EFa46b8F2D97C310C9c4790ba5ffA8;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 93416335);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 99418608);
   }
 
   function testLatestAnswer() public {
@@ -199,7 +199,7 @@ contract CLrETHSynchronicityPriceAdapterTestArbitrum is Test {
 
     assertApproxEqAbs(
       uint256(price),
-      194901406606, // value calculated manually for selected block, there is a diff with DEXes at the moment
+      198221827481, // value calculated manually for selected block, there is a diff with DEXes at the moment
       10000
     );
   }

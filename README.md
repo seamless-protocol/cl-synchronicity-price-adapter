@@ -44,7 +44,7 @@ Price adapter for `rETH / USD` uses `ETH / USD` price feed along with the `getEx
 
 Mainnet Price adapter for rETH is deployed on the address [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225cd708bca9253789c1374e4337a019e99d56).
 
-Arbitrum Price adapter for rETH is deployed on the address [0x853844459106feefd8C7C4cC34066bFBC0531722](https://arbiscan.io/address/0x853844459106feefd8C7C4cC34066bFBC0531722).
+Arbitrum Price adapter for rETH is deployed on the address [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71).
 
 ### LDO Adapter
 
@@ -145,7 +145,7 @@ Polygon
 Arbitrum
 
 | ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| rETH   | [0x853844459106feefd8C7C4cC34066bFBC0531722](https://arbiscan.com/address/0x853844459106feefd8C7C4cC34066bFBC0531722) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.com/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.com/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612)  |
+| rETH   | [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.com/address/0x04c28d6fe897859153ea753f986cc249bf064f71) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.com/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.com/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612)  |
 
 ## Security
 
