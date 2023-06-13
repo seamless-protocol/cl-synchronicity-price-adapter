@@ -6,12 +6,12 @@ import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceA
 import {IStETH} from '../interfaces/IStETH.sol';
 
 /**
- * @title wstETHSynchronicityPriceAdapter
+ * @title WstETHSynchronicityPriceAdapter
  * @author BGD Labs
  * @notice Price adapter to calculate price of (wstETH / USD) pair by using
  * @notice Chainlink data feed for (ETH / USD) and (wstETH / stETH) ratio.
  */
-contract wstETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
+contract WstETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   /**
    * @notice Price feed for (ETH / Base) pair
    */

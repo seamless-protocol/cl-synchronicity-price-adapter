@@ -34,11 +34,11 @@ Price adapter for Mainnet is deployed on the address [0x5f4d15d761528c57a5C30c43
 
 ### stETH to ETH Adapter
 
-Price adapter for `stETH / ETH` returns constant value of 1 ether.
+The price adapter for `stETH / ETH` returns a constant value of 1 ether, in practice, pegging stETH (a rebasing token) to ETH
 
 ### wstETH Adapter
 
-Special price adapter for `wstETH / USD` is added as additionally to using `ETH / USD` price feed it requires an extra step to get the ration between `wstETH` and `stETH` for the price calculation.
+A special price adapter for `wstETH / USD` is added, as additionally to using the `ETH / USD` price feed, an extra step is required to get the ratio between `wstETH` and `stETH`.
 
 ### rETH Adapter
 

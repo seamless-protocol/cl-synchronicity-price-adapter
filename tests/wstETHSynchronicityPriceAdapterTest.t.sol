@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 
-import {wstETHSynchronicityPriceAdapter} from '../src/contracts/wstETHSynchronicityPriceAdapter.sol';
+import {WstETHSynchronicityPriceAdapter} from '../src/contracts/WstETHSynchronicityPriceAdapter.sol';
 import {BaseAggregatorsMainnet} from '../src/lib/BaseAggregators.sol';
 
-contract wstETHSynchronicityPriceAdapterTest is Test {
+contract WstETHSynchronicityPriceAdapterTest is Test {
   address public constant STETH = 0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84;
 
   function setUp() public {
@@ -14,7 +14,7 @@ contract wstETHSynchronicityPriceAdapterTest is Test {
   }
 
   function testLatestAnswer() public {
-    wstETHSynchronicityPriceAdapter adapter = new wstETHSynchronicityPriceAdapter(
+    WstETHSynchronicityPriceAdapter adapter = new WstETHSynchronicityPriceAdapter(
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       STETH,
       'wstETH/stETH/USD'

@@ -5,11 +5,11 @@ import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
 
 /**
- * @title stETHtoETHSynchronicityPriceAdapter
+ * @title StETHtoETHSynchronicityPriceAdapter
  * @author BGD Labs
  * @notice Price adapter to return a constant 1:1 price of (stETH / ETH) pair.
  */
-contract stETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
+contract StETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   /**
    * @notice Number of decimals in the output of this price adapter
    */

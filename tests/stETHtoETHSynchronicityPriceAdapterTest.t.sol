@@ -3,16 +3,16 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 
-import {stETHtoETHSynchronicityPriceAdapter} from '../src/contracts/stETHtoETHSynchronicityPriceAdapter.sol';
+import {StETHtoETHSynchronicityPriceAdapter} from '../src/contracts/StETHtoETHSynchronicityPriceAdapter.sol';
 import {BaseAggregatorsMainnet} from '../src/lib/BaseAggregators.sol';
 
-contract stETHtoETHSynchronicityPriceAdapterTest is Test {
+contract StETHtoETHSynchronicityPriceAdapterTest is Test {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 17446450);
   }
 
   function testLatestAnswer() public {
-    stETHtoETHSynchronicityPriceAdapter adapter = new stETHtoETHSynchronicityPriceAdapter(
+    StETHtoETHSynchronicityPriceAdapter adapter = new StETHtoETHSynchronicityPriceAdapter(
       'stETH/ETH'
     );
 

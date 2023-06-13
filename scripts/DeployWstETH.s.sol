@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {Script} from 'forge-std/Script.sol';
-import {wstETHSynchronicityPriceAdapter} from '../src/contracts/wstETHSynchronicityPriceAdapter.sol';
-import {stETHtoETHSynchronicityPriceAdapter} from '../src/contracts/stETHtoETHSynchronicityPriceAdapter.sol';
+import {WstETHSynchronicityPriceAdapter} from '../src/contracts/WstETHSynchronicityPriceAdapter.sol';
+import {StETHtoETHSynchronicityPriceAdapter} from '../src/contracts/StETHtoETHSynchronicityPriceAdapter.sol';
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
 import {BaseAggregatorsMainnet, BaseAggregatorsArbitrum, BaseAggregatorsOptimism} from '../src/lib/BaseAggregators.sol';
 
@@ -11,7 +11,7 @@ contract DeployStETHMainnetV2 is Script {
   function run() external {
     vm.startBroadcast();
 
-    new stETHtoETHSynchronicityPriceAdapter('stETH/ETH');
+    new StETHtoETHSynchronicityPriceAdapter('stETH/ETH');
 
     vm.stopBroadcast();
   }
@@ -23,7 +23,7 @@ contract DeployWstETHMainnetV3 is Script {
   function run() external {
     vm.startBroadcast();
 
-    new wstETHSynchronicityPriceAdapter(
+    new WstETHSynchronicityPriceAdapter(
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       STETH,
       'wstETH/ETH/USD'
