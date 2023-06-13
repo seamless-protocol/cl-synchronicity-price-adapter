@@ -1,26 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.0;
 
 import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
 import {ICLSynchronicityPriceAdapter} from '../interfaces/ICLSynchronicityPriceAdapter.sol';
-import {IStETH} from '../interfaces/IStETH.sol';
 
 /**
- * @title wstETHtoETHSynchronicityPriceAdapter
+ * @title stETHtoETHSynchronicityPriceAdapter
  * @author BGD Labs
- * @notice Price adapter to calculate price of (wstETH / ETH) pair by using (wstETH / stETH) ratio.
+ * @notice Price adapter to return a constant 1:1 price of (stETH / ETH) pair.
  */
-contract wstETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
-  /**
-   * @notice stETH token contract to get ratio
-   */
-  IStETH public immutable STETH;
-
-  /**
-   * @notice Number of decimals for wstETH / stETH ratio
-   */
-  uint8 public constant RATIO_DECIMALS = 18;
-
+contract stETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   /**
    * @notice Number of decimals in the output of this price adapter
    */
@@ -29,12 +18,9 @@ contract wstETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
   string private _description;
 
   /**
-   * @param stEthAddress the address of the stETH contract
    * @param pairName name identifier
    */
-  constructor(address stEthAddress, string memory pairName) {
-    STETH = IStETH(stEthAddress);
-
+  constructor(string memory pairName) {
     _description = pairName;
   }
 
@@ -50,12 +36,6 @@ contract wstETHtoETHSynchronicityPriceAdapter is ICLSynchronicityPriceAdapter {
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
   function latestAnswer() public view virtual override returns (int256) {
-    int256 ratio = int256(STETH.getPooledEthByShares(10 ** RATIO_DECIMALS));
-
-    if (ratio <= 0) {
-      return 0;
-    }
-
-    return (1 ether * ratio) / int256(10 ** RATIO_DECIMALS);
+    return 1 ether;
   }
 }
