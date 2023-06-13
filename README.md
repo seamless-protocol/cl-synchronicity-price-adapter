@@ -44,6 +44,8 @@ Price adapter for `rETH / USD` uses `ETH / USD` price feed along with the `getEx
 
 Mainnet Price adapter for rETH is deployed on the address [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225cd708bca9253789c1374e4337a019e99d56).
 
+Arbitrum Price adapter for rETH is deployed on the address [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71).
+
 ### LDO Adapter
 
 To provide the `LDO / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `LDO / ETH` and `ETH / USD` oracles is deployed.
@@ -139,6 +141,11 @@ Polygon
 
 | ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | wstETH   | [0xa2508729b1282cc70dd33ed311d4a9a37383035b](https://polygonscan.com/address/0xa2508729b1282cc70dd33ed311d4a9a37383035b) | wstETH/ETH: [0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a](https://polygonscan.com/address/0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a), ETH/USD: [0xF9680D99D6C9589e2a93a78A04A279e509205945](https://polygonscan.com/address/0xF9680D99D6C9589e2a93a78A04A279e509205945)  |
+
+Arbitrum
+
+| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| rETH   | [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.io/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.io/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612)  |
 
 ## Security
 
