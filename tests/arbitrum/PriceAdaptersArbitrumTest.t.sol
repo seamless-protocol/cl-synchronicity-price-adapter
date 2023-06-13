@@ -13,17 +13,17 @@ contract PriceAdaptersArbitrumTest is Test {
 
   function testwstETHLatestAnswer() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
-      BaseAggregatorsArbitrum.STETH_USD_AGGREGATOR,
-      BaseAggregatorsArbitrum.WSTETH_ETH_AGGREGATOR,
+      BaseAggregatorsArbitrum.ETH_USD_AGGREGATOR,
+      BaseAggregatorsArbitrum.WSTETH_STETH_AGGREGATOR,
       8,
-      'wstETH/stETH/USD'
+      'wstETH/ETH/USD'
     );
 
     int256 price = adapter.latestAnswer();
 
     assertApproxEqAbs(
       uint256(price),
-      180516290000, // value calculated manually for selected block
+      181830040000, // value calculated manually for selected block
       10000
     );
   }
