@@ -48,6 +48,8 @@ Mainnet Price adapter for rETH is deployed on the address [0x05225Cd708bCa925378
 
 Arbitrum Price adapter for rETH is deployed on the address [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71).
 
+Optimism Price adapter for rETH is deployed on the address [0x52d5F9f884CA21C27E2100735d793C6771eAB793](https://optimistic.etherscan.io/address/0x52d5F9f884CA21C27E2100735d793C6771eAB793).
+
 ### LDO Adapter
 
 To provide the `LDO / USD` price feed `CLSynchronicityPriceAdapterPegToBase` contract utilizing `LDO / ETH` and `ETH / USD` oracles is deployed.
@@ -148,6 +150,11 @@ Arbitrum
 | ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | rETH | [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.io/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.io/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612) |
 
+
+Optimism
+
+| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| rETH | [0x52d5F9f884CA21C27E2100735d793C6771eAB793](https://optimistic.etherscan.io/address/0x52d5F9f884CA21C27E2100735d793C6771eAB793) | rETH/ETH: [0x22F3727be377781d1579B7C9222382b21c9d1a8f](https://optimistic.etherscan.io/address/0x22F3727be377781d1579B7C9222382b21c9d1a8f), ETH/USD: [0x13e3Ee699D1909E989722E753853AE30b17e08c5](https://optimistic.etherscan.io/address/0x13e3Ee699D1909E989722E753853AE30b17e08c5) |
 ## Security
 
 ### Foundry Tests
