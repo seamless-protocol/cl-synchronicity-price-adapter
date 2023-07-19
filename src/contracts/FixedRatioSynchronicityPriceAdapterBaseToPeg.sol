@@ -57,9 +57,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAd
     if (BASE_TO_PEG.decimals() > MAX_DECIMALS) revert DecimalsAboveLimit();
     if (priceRatio <= 0 || priceRatio >= 100_00) revert RatioOutOfBounds();
 
-    unchecked {
-      MULTIPLIER = int256(10 ** (BASE_TO_PEG.decimals() + decimals));
-    }
+    MULTIPLIER = int256(10 ** (BASE_TO_PEG.decimals() + decimals));
 
     PRICE_RATIO = int256(priceRatio);
     DECIMALS = decimals;

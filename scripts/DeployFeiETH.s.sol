@@ -13,7 +13,7 @@ contract DeployFeiETHMainnet is Script {
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       95_00,
       18,
-      'FEI/USD/ETH'
+      '0.95/USD/ETH'
     );
 
     vm.stopBroadcast();

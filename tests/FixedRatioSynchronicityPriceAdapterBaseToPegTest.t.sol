@@ -20,7 +20,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPegTest is Test {
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       95_00,
       20,
-      'FEI/USD/ETH'
+      '0.95/USD/ETH'
     );
   }
 
@@ -31,7 +31,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPegTest is Test {
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       100_00,
       18,
-      'FEI/USD/ETH'
+      '0.95/USD/ETH'
     );
 
     vm.expectRevert(ICLSynchronicityPriceAdapter.RatioOutOfBounds.selector);
@@ -40,7 +40,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPegTest is Test {
       BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
       0,
       18,
-      'FEI/USD/ETH'
+      '0.95/USD/ETH'
     );
   }
 
@@ -49,7 +49,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPegTest is Test {
         BaseAggregatorsMainnet.ETH_USD_AGGREGATOR,
         95_00,
         18,
-        'FEI/USD/ETH'
+        '0.95/USD/ETH'
       );
 
     int256 price = adapter.latestAnswer();
