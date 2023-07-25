@@ -47,7 +47,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAd
    */
   constructor(
     address baseToPegAggregatorAddress,
-    uint256 priceRatio,
+    int256 priceRatio,
     uint8 decimals,
     string memory pairDescription
   ) {
@@ -59,7 +59,7 @@ contract FixedRatioSynchronicityPriceAdapterBaseToPeg is ICLSynchronicityPriceAd
 
     MULTIPLIER = int256(10 ** (BASE_TO_PEG.decimals() + decimals));
 
-    PRICE_RATIO = int256(priceRatio);
+    PRICE_RATIO = priceRatio;
     DECIMALS = decimals;
     _description = pairDescription;
   }
