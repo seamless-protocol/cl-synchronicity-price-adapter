@@ -27,3 +27,5 @@ deploy-stmatic-polygon :; forge script scripts/DeployMaticAdapterPolygon.s.sol:D
 
 deploy-rETH-arbitrum :; forge script scripts/DeployrETHAdapterArbitrum.s.sol:DeployrETHArbitrum --rpc-url arbitrum --broadcast --private-key ${PRIVATE_KEY} --verify --etherscan-api-key ${ETHERSCAN_API_KEY_ARBITRUM} -vvvv
 deploy-rETH-optimism :; forge script scripts/DeployrETHAdapterOptimism.s.sol:DeployrETHOptimism --rpc-url optimism --broadcast --private-key ${PRIVATE_KEY} --verify --etherscan-api-key ${ETHERSCAN_API_KEY_OPTIMISM} -vvvv
+
+deploy-fei :; forge script scripts/DeployFeiETH.s.sol:DeployFeiETHMainnet --rpc-url mainnet --broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv

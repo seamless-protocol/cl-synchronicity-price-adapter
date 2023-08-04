@@ -22,4 +22,5 @@ interface ICLSynchronicityPriceAdapter {
 
   error DecimalsAboveLimit();
   error DecimalsNotEqual();
+  error RatioOutOfBounds();
 }
