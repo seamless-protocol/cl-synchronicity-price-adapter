@@ -5,8 +5,7 @@ import {Test} from 'forge-std/Test.sol';
 
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IChainlinkAggregator.sol';
-import {BaseAggregatorsArbitrum, BaseAggregatorsMainnet, BaseAggregatorsOptimism} from '../src/lib/BaseAggregators.sol';
-import {BaseAggregatorsPolygon} from '../src/lib/BaseAggregatorsPolygon.sol';
+import {BaseAggregatorsArbitrum, BaseAggregatorsMainnet, BaseAggregatorsOptimism, BaseAggregatorsPolygon, BaseAggregatorsBase} from '../src/lib/BaseAggregators.sol';
 
 contract CLSynchronicityPriceAdapterPegToBaseTest is Test {
   uint256 public constant START_BLOCK = 15588955;
@@ -223,5 +222,37 @@ contract CLrETHSynchronicityPriceAdapterTestOptimism is Test {
       202660356782, // value calculated manually for selected block, there is a diff with DEXes at the moment
       10000
     );
+  }
+}
+
+contract CLrETHSynchronicityPriceAdapterTestBase is Test {
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('base'), 2187610);
+  }
+
+  function testLatestAnswerWstEth() public {
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+      BaseAggregatorsBase.ETH_USD_AGGREGATOR,
+      BaseAggregatorsBase.WSTETH_STETH_AGGREGATOR,
+      8,
+      'wstETH/ETH/USD'
+    );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(uint256(price), 208883070000, 10000);
+  }
+
+  function testLatestAnswerCbEth() public {
+    CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
+      BaseAggregatorsBase.ETH_USD_AGGREGATOR,
+      BaseAggregatorsBase.CBETH_ETH_AGGREGATOR,
+      8,
+      'cbETH/ETH/USD'
+    );
+
+    int256 price = adapter.latestAnswer();
+
+    assertApproxEqAbs(uint256(price), 192079109243, 10000);
   }
 }
