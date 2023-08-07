@@ -5,7 +5,7 @@ import {Script} from 'forge-std/Script.sol';
 import {WstETHSynchronicityPriceAdapter} from '../src/contracts/WstETHSynchronicityPriceAdapter.sol';
 import {StETHtoETHSynchronicityPriceAdapter} from '../src/contracts/StETHtoETHSynchronicityPriceAdapter.sol';
 import {CLSynchronicityPriceAdapterPegToBase} from '../src/contracts/CLSynchronicityPriceAdapterPegToBase.sol';
-import {BaseAggregatorsMainnet, BaseAggregatorsArbitrum, BaseAggregatorsOptimism, BaseAggregatorsPolygon} from '../src/lib/BaseAggregators.sol';
+import {BaseAggregatorsMainnet, BaseAggregatorsArbitrum, BaseAggregatorsOptimism, BaseAggregatorsPolygon, BaseAggregatorsBase} from '../src/lib/BaseAggregators.sol';
 
 contract DeployStETHMainnetV2 is Script {
   function run() external {
@@ -70,6 +70,21 @@ contract DeployWstETHPolygon is Script {
     new CLSynchronicityPriceAdapterPegToBase(
       BaseAggregatorsPolygon.ETH_USD_AGGREGATOR,
       BaseAggregatorsPolygon.WSTETH_STETH_AGGREGATOR,
+      8,
+      'wstETH/ETH/USD'
+    );
+
+    vm.stopBroadcast();
+  }
+}
+
+contract DeployWstETHBase is Script {
+  function run() external {
+    vm.startBroadcast();
+
+    new CLSynchronicityPriceAdapterPegToBase(
+      BaseAggregatorsBase.ETH_USD_AGGREGATOR,
+      BaseAggregatorsBase.WSTETH_STETH_AGGREGATOR,
       8,
       'wstETH/ETH/USD'
     );
