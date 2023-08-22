@@ -21,4 +21,7 @@ library BaseAggregatorsMainnet {
 
   address public constant LDO_ETH_AGGREGATOR =
     0x4e844125952D32AcdF339BE976c98E22F6F318dB;
+
+  address public constant DAI_USD_AGGREGATOR = 0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9;
+  address public constant SDAI_POT = 0x197E90f9FAD81970bA7976f33CbD77088E5D7cf7;
 }
