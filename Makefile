@@ -34,3 +34,4 @@ deploy-cbEthBase :; forge script scripts/DeploycbETHAdapter.s.sol:DeploycbETHBas
 deploy-wstEthBase :; forge script scripts/DeployWstETH.s.sol:DeployWstETHBase --rpc-url base --broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
 
 deploy-sDAI :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIMainnet --rpc-url mainnet --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
+deploy-sDAI-gnosis :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIGnosis --rpc-url gnosis --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
