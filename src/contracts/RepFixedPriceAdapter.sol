@@ -25,7 +25,7 @@ contract RepFixedPriceAdapter is ICLSynchronicityPriceAdapter {
   /**
    * @notice Calculated price
    */
-  int256 public constant PRICE = 385016088900000;
+  int256 public constant PRICE = 462569569300000;
 
   /// @inheritdoc ICLSynchronicityPriceAdapter
   function description() external pure returns (string memory) {

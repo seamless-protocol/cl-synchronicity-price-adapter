@@ -15,6 +15,6 @@ contract RepFixedPriceAdapterTest is Test {
 
     int256 price = adapter.latestAnswer();
 
-    assertEq(price, 385016088900000);
+    assertEq(price, 462569569300000);
   }
 }
