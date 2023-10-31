@@ -35,3 +35,5 @@ deploy-wstEthBase :; forge script scripts/DeployWstETH.s.sol:DeployWstETHBase --
 
 deploy-sDAI :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIMainnet --rpc-url mainnet --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
 deploy-sDAI-gnosis :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIGnosis --rpc-url gnosis --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
+
+deploy-rep :; forge script scripts/DeployRepAdapter.s.sol:DeployRepMainnet --rpc-url mainnet --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv

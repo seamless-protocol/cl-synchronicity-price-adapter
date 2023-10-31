@@ -37,6 +37,10 @@ contract RepFixedPriceAdapter is ICLSynchronicityPriceAdapter {
     return DECIMALS;
   }
 
+  /*
+   * @dev Price adapter that returns calculated average price for REP / ETH
+   * based on the values from 01/09/2023 till 31/10/2023
+   */
   /// @inheritdoc ICLSynchronicityPriceAdapter
   function latestAnswer() public view virtual override returns (int256) {
     return PRICE;
