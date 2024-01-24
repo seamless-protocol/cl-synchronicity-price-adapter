@@ -133,7 +133,7 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 
 ## Aave v3 assets
 
-| Asset                                                                                                                 | Asset address                                                                                                                  | Chainlink Data Feed addresses                                                                                                                                                                                                                                    |
+| Asset                                                                                                                 | Asset address                                                                                                                  | Chainlink Data Feed address                                                                                                                                                                                                                                      |
 | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | WBTC                                                                                                                  | [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599](https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599)          | WBTC/BTC: [0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23](https://etherscan.io/address/0xfdfd9c85ad200c506cf9e21f1fd8dd01932fbb23), BTC/USD: [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xf4030086522a5beea4988f8ca5b36dbc97bee88c)  |
 | wstETH                                                                                                                | [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0)          | stETH/ETH: [0x86392dC19c0b719886221c78AB11eb8Cf5c52812](https://etherscan.io/address/0x86392dc19c0b719886221c78ab11eb8cf5c52812), ETH/USD: [0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419](https://etherscan.io/address/0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419) |
@@ -141,20 +141,26 @@ List of affected Aave v2 Arc stablecoin assets and used Chainlink Data Feeds for
 | [0x4e844125952D32AcdF339BE976c98E22F6F318dB](https://etherscan.io/address/0x4e844125952D32AcdF339BE976c98E22F6F318dB) | ETH/USD: [0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419](https://etherscan.io/address/0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419) |
 
 Polygon
-
-| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset | Asset address | Chainlink Data Feed address |
+| ------ | ----- | ----- |
 | wstETH | [0xa2508729b1282cc70dd33ed311d4a9a37383035b](https://polygonscan.com/address/0xa2508729b1282cc70dd33ed311d4a9a37383035b) | wstETH/ETH: [0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a](https://polygonscan.com/address/0x10f964234cae09cB6a9854B56FF7D4F38Cda5E6a), ETH/USD: [0xF9680D99D6C9589e2a93a78A04A279e509205945](https://polygonscan.com/address/0xF9680D99D6C9589e2a93a78A04A279e509205945) |
 
 Arbitrum
-
-| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset | Asset address | Chainlink Data Feed address |
+| ------ | ----- | ----- |
 | rETH | [0x04c28d6fe897859153ea753f986cc249bf064f71](https://arbiscan.io/address/0x04c28d6fe897859153ea753f986cc249bf064f71) | rETH/ETH: [0xf3272cafe65b190e76caaf483db13424a3e23dd2](https://arbiscan.io/address/0xf3272cafe65b190e76caaf483db13424a3e23dd2), ETH/USD: [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.io/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612) |
 
-
 Optimism
-
-| ------ | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset | Asset address | Chainlink Data Feed address |
+| ------ | ----- | ----- |
 | rETH | [0x52d5F9f884CA21C27E2100735d793C6771eAB793](https://optimistic.etherscan.io/address/0x52d5F9f884CA21C27E2100735d793C6771eAB793) | rETH/ETH: [0x22F3727be377781d1579B7C9222382b21c9d1a8f](https://optimistic.etherscan.io/address/0x22F3727be377781d1579B7C9222382b21c9d1a8f), ETH/USD: [0x13e3Ee699D1909E989722E753853AE30b17e08c5](https://optimistic.etherscan.io/address/0x13e3Ee699D1909E989722E753853AE30b17e08c5) |
+
+
+Base
+| Asset | Asset address | Chainlink Data Feed address |
+| ------ | ----- | ----- |
+| wstETH | [0xd815218fa8c9bd605c2b048f26cd374a752caa76](https://basescan.org/address/0xd815218fa8c9bd605c2b048f26cd374a752caa76) | wstETH/ETH: [0xa669E5272E60f78299F4824495cE01a3923f4380](https://basescan.org/address/0xa669E5272E60f78299F4824495cE01a3923f4380), ETH/USD: [0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70](https://basescan.org/address/0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70)
+
 ## Security
 
 ### Foundry Tests
