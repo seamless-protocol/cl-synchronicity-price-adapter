@@ -31,7 +31,7 @@ deploy-rETH-optimism :; forge script scripts/DeployrETHAdapterOptimism.s.sol:Dep
 deploy-fei :; forge script scripts/DeployFeiETH.s.sol:DeployFeiETHMainnet --rpc-url mainnet --broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
 
 deploy-cbEthBase :; forge script scripts/DeploycbETHAdapter.s.sol:DeploycbETHBase --rpc-url base --broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
-deploy-wstEthBase :; forge script scripts/DeployWstETH.s.sol:DeployWstETHBase --rpc-url base --broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
+deploy-wstEthBase :; forge script scripts/DeployWstETH.s.sol:DeployWstETHBase --rpc-url base --broadcast --private-key ${PRIVATE_KEY} --verify -vvvv
 
 deploy-sDAI :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIMainnet --rpc-url mainnet --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv
 deploy-sDAI-gnosis :; forge script scripts/DeploysDAIAdapter.s.sol:DeploysDAIGnosis --rpc-url gnosis --broadcast --ledger --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv

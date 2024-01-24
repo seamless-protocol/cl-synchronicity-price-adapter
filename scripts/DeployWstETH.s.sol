@@ -84,7 +84,7 @@ contract DeployWstETHBase is Script {
 
     new CLSynchronicityPriceAdapterPegToBase(
       BaseAggregatorsBase.ETH_USD_AGGREGATOR,
-      BaseAggregatorsBase.WSTETH_STETH_AGGREGATOR,
+      BaseAggregatorsBase.WSTETH_ETH_AGGREGATOR,
       8,
       'wstETH/ETH/USD'
     );

@@ -227,20 +227,23 @@ contract CLrETHSynchronicityPriceAdapterTestOptimism is Test {
 
 contract CLrETHSynchronicityPriceAdapterTestBase is Test {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 2187610);
+    vm.createSelectFork(vm.rpcUrl('base'), 9633260);
   }
 
   function testLatestAnswerWstEth() public {
     CLSynchronicityPriceAdapterPegToBase adapter = new CLSynchronicityPriceAdapterPegToBase(
       BaseAggregatorsBase.ETH_USD_AGGREGATOR,
-      BaseAggregatorsBase.WSTETH_STETH_AGGREGATOR,
+      BaseAggregatorsBase.WSTETH_ETH_AGGREGATOR,
       8,
       'wstETH/ETH/USD'
     );
 
     int256 price = adapter.latestAnswer();
 
-    assertApproxEqAbs(uint256(price), 208883070000, 10000);
+    int256 ethUsdPrice = IChainlinkAggregator(BaseAggregatorsBase.ETH_USD_AGGREGATOR).latestAnswer();
+    int256 wstEthUsdPrice = IChainlinkAggregator(BaseAggregatorsBase.WSTETH_ETH_AGGREGATOR).latestAnswer();
+
+    assertApproxEqAbs(uint256(price), uint256(wstEthUsdPrice * ethUsdPrice) / (10 ** (8 + 18 - 8)), 10000);
   }
 
   function testLatestAnswerCbEth() public {
@@ -253,6 +256,9 @@ contract CLrETHSynchronicityPriceAdapterTestBase is Test {
 
     int256 price = adapter.latestAnswer();
 
-    assertApproxEqAbs(uint256(price), 192079109243, 10000);
+    int256 ethUsdPrice = IChainlinkAggregator(BaseAggregatorsBase.ETH_USD_AGGREGATOR).latestAnswer();
+    int256 cbEthUsdPrice = IChainlinkAggregator(BaseAggregatorsBase.CBETH_ETH_AGGREGATOR).latestAnswer();
+
+    assertApproxEqAbs(uint256(price), uint256(cbEthUsdPrice * ethUsdPrice) / (10 ** (8 + 18 - 8)), 10000);
   }
 }
